@@ -1,8 +1,6 @@
-using Dapper;
+using ControleFinanceiro.Domain.Interface;
+using ControleFinanceiro.Domain.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using ControleFinanceiroAPI.Model;
-using ControleFinanceiroAPI.Interface;
 
 namespace ControleFinanceiroAPI.Controllers
 {
@@ -19,12 +17,20 @@ namespace ControleFinanceiroAPI.Controllers
             this.importarService = importarService;
         }
 
-        [HttpPost(Name = "ImportarCSVNubank")]
-        public ActionResult Post(string CaminhoArquivo, DateTime Vencimento)
+        [HttpPost("ImportarCSVNubank")]
+        public ActionResult ImportarCSVNubank(string CaminhoArquivo, DateTime Vencimento)
         {
-            importarService.ImportarArquivo(CaminhoArquivo, Vencimento, 0);
+            importarService.ImportarArquivo(CaminhoArquivo, Vencimento, TipoImportacao.Nubank);
 
             return Ok(); 
-        }                
+        }
+
+        [HttpPost("ImportarCSVC6Bank")]
+        public ActionResult ImportarCSVC6Bank(string CaminhoArquivo, DateTime Vencimento)
+        {
+            importarService.ImportarArquivo(CaminhoArquivo, Vencimento, TipoImportacao.C6Bank);
+
+            return Ok();
+        }
     }
 }

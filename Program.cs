@@ -1,12 +1,11 @@
-using ControleFinanceiroAPI.Data;
-using ControleFinanceiroAPI.Interface;
-using ControleFinanceiroAPI.Repositories;
-using ControleFinanceiroAPI.Repositories.Interface;
-using ControleFinanceiroAPI.Services;
+using ControleFinanceiro.Domain.Data;
+using ControleFinanceiro.Domain.Interface;
+using ControleFinanceiro.Domain.Repositories;
+using ControleFinanceiro.Domain.Repositories.Interface;
+using ControleFinanceiro.Domain.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
