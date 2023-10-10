@@ -1,0 +1,144 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Infra\\ControleFinanceiro.Infra.csproj": {}
+  },
+  "projects": {
+    "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Domain\\ControleFinanceiro.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Domain\\ControleFinanceiro.Domain.csproj",
+        "projectName": "ControleFinanceiro.Domain",
+        "projectPath": "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Domain\\ControleFinanceiro.Domain.csproj",
+        "packagesPath": "C:\\Users\\Giulia\\.nuget\\packages\\",
+        "outputPath": "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Giulia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "http://www.nuget.sgi.ms.gov.br/nuget/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.151, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Infra\\ControleFinanceiro.Infra.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Infra\\ControleFinanceiro.Infra.csproj",
+        "projectName": "ControleFinanceiro.Infra",
+        "projectPath": "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Infra\\ControleFinanceiro.Infra.csproj",
+        "packagesPath": "C:\\Users\\Giulia\\.nuget\\packages\\",
+        "outputPath": "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Infra\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Giulia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "http://www.nuget.sgi.ms.gov.br/nuget/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Domain\\ControleFinanceiro.Domain.csproj": {
+                "projectPath": "C:\\projetos\\ControleFinanceiro\\src\\ControleFinanceiro.Domain\\ControleFinanceiro.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

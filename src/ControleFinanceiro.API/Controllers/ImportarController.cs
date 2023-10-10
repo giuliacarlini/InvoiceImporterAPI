@@ -1,6 +1,6 @@
 using ControleFinanceiro.Domain.Data;
-using ControleFinanceiro.Domain.Interface;
-using ControleFinanceiro.Domain.Utils;
+using ControleFinanceiro.Domain.Enum;
+using ControleFinanceiro.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleFinanceiroAPI.Controllers
@@ -10,10 +10,10 @@ namespace ControleFinanceiroAPI.Controllers
     public class ImportarController : ControllerBase
     {
         private readonly ILogger<ImportarController> _logger;
-        private readonly IImportar _importarService;
+        private readonly IImportarService _importarService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ImportarController(ILogger<ImportarController> logger, IImportar importarService, IUnitOfWork unitOfWork)
+        public ImportarController(ILogger<ImportarController> logger, IImportarService importarService, IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _importarService = importarService;

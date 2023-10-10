@@ -1,9 +1,7 @@
+using ControleFinanceiro.Domain.Adapters;
 using ControleFinanceiro.Domain.Data;
-using ControleFinanceiro.Domain.Interface;
-using ControleFinanceiro.Domain.Repositories;
-using ControleFinanceiro.Domain.Repositories.Interface;
 using ControleFinanceiro.Domain.Services;
-
+using ControleFinanceiro.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IImportar, ImportarService>();
+builder.Services.AddScoped<IImportarService, ImportarService>();
 
 builder.Services.AddScoped<DbSession>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
