@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Applicat
 		{C341EF2C-05E8-43F4-B23F-1AE4D703CA4F} = {C341EF2C-05E8-43F4-B23F-1AE4D703CA4F}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Infra", "src\ControleFinanceiro.Infra\ControleFinanceiro.Infra.csproj", "{A8A4F09D-4FAA-4728-886B-7CC62544A836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Infra.DB", "src\ControleFinanceiro.Infra\ControleFinanceiro.Infra.DB.csproj", "{A8A4F09D-4FAA-4728-886B-7CC62544A836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

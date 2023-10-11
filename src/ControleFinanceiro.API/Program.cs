@@ -1,3 +1,4 @@
+using ControleFinanceiro.Application;
 using ControleFinanceiro.Domain.Adapters;
 using ControleFinanceiro.Domain.Data;
 using ControleFinanceiro.Domain.Services;
@@ -9,16 +10,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IImportarService, ImportarService>();
+builder.Services.AddScoped<ICadastrarFaturaService, CadastrarFaturaService>();
+builder.Services.AddScoped<IConverterService, ConverterService>();
 
 builder.Services.AddScoped<DbSession>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IFaturaRepository, FaturaRepository>();
-builder.Services.AddTransient<IImportacaoRepository, ImportacaoRepository>();
+builder.Services.AddTransient<ILancamentoImportacaoRepository, LancamentoImportacaoRepository>();
 builder.Services.AddTransient<ILancamentoRepository, LancamentoRepository>();
 
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,3 +1,4 @@
+using ControleFinanceiro.Domain.Adapters;
 using ControleFinanceiro.Domain.Data;
 using ControleFinanceiro.Domain.Enum;
 using ControleFinanceiro.Domain.Services;
@@ -10,27 +11,41 @@ namespace ControleFinanceiroAPI.Controllers
     public class ImportarController : ControllerBase
     {
         private readonly ILogger<ImportarController> _logger;
-        private readonly IImportarService _importarService;
+        private readonly ICadastrarFaturaService _importarService;
+        private readonly IConverterService _converterService;
+        private readonly IFaturaRepository _faturaRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ImportarController(ILogger<ImportarController> logger, IImportarService importarService, IUnitOfWork unitOfWork)
+        public ImportarController(  ILogger<ImportarController> logger, 
+                                    ICadastrarFaturaService importarService, 
+                                    IUnitOfWork unitOfWork, 
+                                    IFaturaRepository faturaRepository,
+                                    IConverterService converterService)
         {
             _logger = logger;
             _importarService = importarService;
             _unitOfWork = unitOfWork;
+            _faturaRepository = faturaRepository;
+            _converterService = converterService;
         }
 
         [HttpPost("ImportarCSVNubank")]
-        public ActionResult ImportarCSVNubank(string CaminhoArquivo, DateTime Vencimento)
+        public async Task<ActionResult> ImportarCSVNubank(string CaminhoArquivo, DateTime Vencimento)
         {
+            if (_faturaRepository.BuscarFaturaPorNomeArquivo(Path.GetFileName(CaminhoArquivo)))
+                return BadRequest("Arquivo já importado!");
+
             _unitOfWork.BeginTransaction();
             try
             {
-                var idFatura = _importarService.ImportarArquivo(CaminhoArquivo, Vencimento, TipoImportacao.Nubank);
+                var fatura = await _converterService.TransformarLinhasEmObjeto(CaminhoArquivo, Vencimento, TipoImportacao.Nubank);
+
+               // var idFatura = _importarService.ImportarArquivo(CaminhoArquivo, Vencimento, TipoImportacao.Nubank, teste);
                 
                 _unitOfWork.Commit();
 
-                return idFatura > 0 ? Ok(idFatura) : NotFound("Fatura não importada.");
+                //return idFatura > 0 ? Ok(idFatura) : 
+                return NotFound("Fatura não importada.");
             }
             catch (Exception ex)
             {
@@ -45,7 +60,7 @@ namespace ControleFinanceiroAPI.Controllers
             _unitOfWork.BeginTransaction();
             try
             {
-                _importarService.ImportarArquivo(CaminhoArquivo, Vencimento, TipoImportacao.C6Bank);
+               // _importarService.ImportarArquivo(CaminhoArquivo, Vencimento, TipoImportacao.C6Bank);
                 _unitOfWork.Commit();
 
                 return Ok();

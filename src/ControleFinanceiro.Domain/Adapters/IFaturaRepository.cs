@@ -4,7 +4,7 @@ namespace ControleFinanceiro.Domain.Adapters
 {
     public interface IFaturaRepository
     {
-        Fatura Save(Fatura fatura);
+        Fatura Adicionar(Fatura fatura);
         bool BuscarFaturaPorNomeArquivo(string nomeArquivo);
     }
 }

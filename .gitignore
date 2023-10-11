@@ -4,3 +4,7 @@
 /src/ControleFinanceiro.UnitTests/bin/Debug/net7.0
 net7.0
 /.vs/ControleFinanceiro/FileContentIndex/*.vsidx
+src/ControleFinanceiro.UnitTests/obj/
+src/ControleFinanceiro.Infra/obj/
+src/ControleFinanceiro.Infra.ImportarCSV/obj/
+src/

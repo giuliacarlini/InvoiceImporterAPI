@@ -24,7 +24,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ControleFinanceiro.Application\ControleFinanceiro.Application.csproj" />
     <ProjectReference Include="..\ControleFinanceiro.Domain\ControleFinanceiro.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="arquivos\c6bank\Fatura_2023-09-15-c6.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="arquivos\nubank\nubank-2023-09-excel.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="arquivos\nubank\nubank-2023-09-excel.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="arquivos\nubank\nubank-2023-09-invalido.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="arquivos\nubank\nubank-2023-09.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

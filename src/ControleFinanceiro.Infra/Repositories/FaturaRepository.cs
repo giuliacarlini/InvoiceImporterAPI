@@ -14,7 +14,7 @@ namespace ControleFinanceiro.Infra.Repositories
             _session = session;
         }
 
-        public Fatura Save(Fatura fatura)
+        public Fatura Adicionar(Fatura fatura)
         {
             var id = _session.Connection.QuerySingle<int>(
                     "INSERT INTO [Fatura] " +
