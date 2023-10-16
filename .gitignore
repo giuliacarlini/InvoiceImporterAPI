@@ -7,4 +7,6 @@ net7.0
 src/ControleFinanceiro.UnitTests/obj/
 src/ControleFinanceiro.Infra/obj/
 src/ControleFinanceiro.Infra.ImportarCSV/obj/
-src/
+src/ControleFinanceiro.API/obj/
+*.user
+.vs/
