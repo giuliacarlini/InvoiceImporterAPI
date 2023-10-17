@@ -1,15 +1,76 @@
-﻿namespace ControleFinanceiro.Domain.Entities
+﻿using ControleFinanceiro.Domain.Enum;
+
+namespace ControleFinanceiro.Domain.Entities
 {
     public class Lancamento
     {
-        public DateTime Data { get; set; }
-        public string Categoria { get; set; } = string.Empty;
-        public string Descricao { get; set; } = string.Empty;
-        public decimal Valor { get; set; }
-        public bool? Parcelado { get; set; }
-        public string Parcela { get; set; } = string.Empty;
-        public string TotalParcela { get; set; } = string.Empty;
-        public int IdImportacao { get; set; }
+        public Lancamento(DateTime data, string categoria, string descricao, decimal valor, bool? parcelado, string parcela, string totalParcela, LancamentoImportacao lancamentoImportacao)
+        {
+            IdLancamento = new Guid();
+            Data = data;
+            Categoria = categoria;
+            Descricao = descricao;
+            Valor = valor;
+            Parcelado = parcelado;
+            Parcela = parcela;
+            TotalParcela = totalParcela;
+            LancamentoImportacao = lancamentoImportacao;
+        }
+
+        public Guid IdLancamento { get; private set; }
+        public DateTime Data { get; private set; }
+        public string Categoria { get; private set; } = string.Empty;
+        public string Descricao { get; private set; } = string.Empty;
+        public decimal Valor { get; private set; }
+        public bool? Parcelado { get; private set; }
+        public string Parcela { get; private set; } = string.Empty;
+        public string TotalParcela { get; private set; } = string.Empty;
+        public Guid IdImportacao { get; private set; }
         public virtual LancamentoImportacao? LancamentoImportacao { get; set; }
+
+        public Lancamento(LancamentoImportacao lancamentoImportacao, string line, TipoImportacao tipoImportacao)
+        {
+            if (tipoImportacao == TipoImportacao.Nubank)
+            {
+                var lineSplitNu = line.Split(",");
+
+                IdLancamento = new Guid();
+                Data = DateTime.Parse(lineSplitNu[0]);
+                Categoria = lineSplitNu[1];
+                Descricao = lineSplitNu[2];
+                Valor = decimal.Parse(lineSplitNu[3].Replace(".", ","), System.Globalization.NumberStyles.Currency);
+                Parcelado = LocalizarParcela(lineSplitNu[2], false) != "";
+                Parcela = LocalizarParcela(lineSplitNu[2], false);
+                TotalParcela = LocalizarParcela(lineSplitNu[2], true);
+                LancamentoImportacao = lancamentoImportacao;
+            }
+        }
+
+        private string LocalizarParcela(string descricao, bool TotalParcela)
+        {
+            try
+            {
+                if (descricao.IndexOf("/") > 0)
+                {
+                    string[] retornoSplit = descricao.Split(' ');
+
+                    foreach (string s in retornoSplit)
+                    {
+                        if (s.Contains("/"))
+                        {
+                            var resultado = TotalParcela ? s.Substring(s.IndexOf("/") + 1, new string(s.Reverse().ToArray()).IndexOf("/")) : s.Substring(0, s.IndexOf("/"));
+
+                            return int.Parse(resultado).ToString();
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return "";
+            }
+
+            return "";
+        }
     }
 }

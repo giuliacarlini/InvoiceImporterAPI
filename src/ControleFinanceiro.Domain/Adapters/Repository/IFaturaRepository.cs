@@ -1,6 +1,6 @@
 ﻿using ControleFinanceiro.Domain.Entities;
 
-namespace ControleFinanceiro.Domain.Adapters
+namespace ControleFinanceiro.Domain.Adapters.Repository
 {
     public interface IFaturaRepository
     {

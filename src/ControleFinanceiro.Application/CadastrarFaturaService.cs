@@ -1,4 +1,5 @@
 ﻿using ControleFinanceiro.Domain.Adapters;
+using ControleFinanceiro.Domain.Adapters.Repository;
 using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Enum;
 using ControleFinanceiro.Domain.Services;

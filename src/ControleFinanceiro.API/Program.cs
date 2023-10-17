@@ -1,5 +1,6 @@
 using ControleFinanceiro.Application;
 using ControleFinanceiro.Domain.Adapters;
+using ControleFinanceiro.Domain.Adapters.Repository;
 using ControleFinanceiro.Domain.Data;
 using ControleFinanceiro.Domain.Services;
 using ControleFinanceiro.Infra.Repositories;
