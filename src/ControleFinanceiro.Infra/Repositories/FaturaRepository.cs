@@ -16,17 +16,14 @@ namespace ControleFinanceiro.Infra.Repositories
 
         public Fatura Adicionar(Fatura fatura)
         {
-            var id = _session.Connection.QuerySingle<int>(
+            _session.Connection.QuerySingle<int>(
                     "INSERT INTO [Fatura] " +
-                    "   OUTPUT INSERTED.IdFatura " +
                     "VALUES(@IdOrigem, " +
                     "       @Vencimento, " +
                     "       @DataHoraCadastro," +
                     "       @NomeArquivo)",
                 fatura,
                 _session.Transaction);
-
-            fatura.IdFatura = id;
 
             return fatura;
         }

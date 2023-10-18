@@ -1,16 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ControleFinanceiro.Domain.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace ControleFinanceiro.Domain.Entities
 {
     public class Fatura
     {
-        public Fatura(int idOrigem, DateTime vencimento, string nomeArquivo)
+        public Fatura(TipoImportacao tipoImportacao, DateTime vencimento, string nomeArquivo)
         {
-            IdFatura = new Guid();
-            IdOrigem = idOrigem;
+            IdFatura = Guid.NewGuid();
+            IdOrigem = (int)tipoImportacao;
             Vencimento = vencimento;
             DataHoraCadastro = DateTime.Now;
             NomeArquivo = nomeArquivo;
+            Lancamentos = new List<Lancamento>();
         }
 
         public Guid IdFatura { get; private set; }
@@ -24,9 +26,9 @@ namespace ControleFinanceiro.Domain.Entities
         [Required]
         public DateTime DataHoraCadastro { get; private set; }
 
-        [MaxLength(50, ErrorMessage = "O nome do arquivo excede os 50 caracteres permitidos")]
-        public string NomeArquivo { get; private set; } = string.Empty;
+        [StringLength(50, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
+        public string NomeArquivo { get; private set; }
 
-        public virtual List<Lancamento>? Lancamentos { get; set; }
+        public List<Lancamento> Lancamentos { get; set; }
     }
 }

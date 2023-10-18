@@ -6,29 +6,24 @@ namespace ControleFinanceiro.Application
 {
     public class ConverterService : IConverterService
     {
-        public async Task<Fatura> TransformarLinhasEmObjeto(string caminhoArquivo, DateTime vencimento, TipoImportacao tipoImportacao)
+        public Fatura TransformarLinhasEmObjeto(string caminhoArquivo, DateTime vencimento, TipoImportacao tipoImportacao)
         {
-            var data = ValidarRegistros(caminhoArquivo);
+            var arquivo = ValidarRegistros(caminhoArquivo);
 
             try
             {
-                List<Lancamento>? listaLancamentos = new List<Lancamento>();
+                var _fatura = new Fatura(tipoImportacao, vencimento, Path.GetFileName(caminhoArquivo));
 
-                var fatura = new Fatura((int)tipoImportacao, vencimento, Path.GetFileName(caminhoArquivo));
-
-                foreach (var line in data.Skip(1))
+                foreach (var linha in arquivo.Skip(1))
                 {
-                    var lancamentoImportacao = new LancamentoImportacao(line);
-
-                    listaLancamentos.Add(new Lancamento(lancamentoImportacao, line, tipoImportacao));
+                    var lancamentoImportacao = new LancamentoImportacao(linha);
+                    _fatura.Lancamentos.Add(new Lancamento(lancamentoImportacao, linha, tipoImportacao));
                 }
 
-                fatura.Lancamentos = listaLancamentos;
-
-                if (fatura.Lancamentos.Count == 0)
+                if (_fatura.Lancamentos.Count == 0)
                     throw new Exception("Não encontrado registros válidos para o tipo de importação escolhido.");
 
-                return fatura;
+                return _fatura;
             }
             catch (FormatException ex)
             {
@@ -51,10 +46,7 @@ namespace ControleFinanceiro.Application
 
             var data = File.ReadLines(caminhoArquivo);
 
-            if (data == null)
-                throw new Exception("Registros não encontrados");
-
-            return data;
+            return data == null ? throw new Exception("Registros não encontrados") : data;
         }
     }
 }

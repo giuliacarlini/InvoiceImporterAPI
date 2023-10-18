@@ -4,10 +4,11 @@
     {
         public LancamentoImportacao(string linha)
         {
+            IdImportacao = Guid.NewGuid();
             Linha = linha;
         }
 
-        public int IdImportacao { get; set; }
+        public Guid IdImportacao { get; set; }
         public string Linha { get; private set; } = string.Empty;
         public int IdFatura { get; private set; }
     }

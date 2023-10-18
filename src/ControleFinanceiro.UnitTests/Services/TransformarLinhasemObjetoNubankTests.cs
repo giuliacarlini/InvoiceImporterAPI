@@ -2,7 +2,7 @@ using ControleFinanceiro.Application;
 using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Enum;
 
-namespace ControleFinanceiro.UnitTests
+namespace ControleFinanceiro.UnitTests.Services
 {
     public class TransformarLinhasemObjetoNubankTests
     {
@@ -15,16 +15,16 @@ namespace ControleFinanceiro.UnitTests
 
         private readonly ConverterService _converterService;
 
-        public TransformarLinhasemObjetoNubankTests() 
+        public TransformarLinhasemObjetoNubankTests()
         {
             _converterService = new ConverterService();
         }
 
         [Fact]
-        public async Task testar_gerar_objeto_importacao_nubank_com_sucesso()
+        public void testar_gerar_objeto_importacao_nubank_com_sucesso()
         {
-            Fatura lista = await _converterService.TransformarLinhasEmObjeto(
-                    Environment.CurrentDirectory+ CaminhoArquivoNubank,
+            Fatura lista = _converterService.TransformarLinhasEmObjeto(
+                    Environment.CurrentDirectory + CaminhoArquivoNubank,
                     DateTime.Now,
                     TipoImportacao.Nubank);
 
@@ -32,9 +32,9 @@ namespace ControleFinanceiro.UnitTests
         }
 
         [Fact]
-        public async Task testar_gerar_objeto_importacao_nubank_com_registros_errados()
+        public void testar_gerar_objeto_importacao_nubank_com_registros_errados()
         {
-            var result = await Assert.ThrowsAsync<FormatException>(() =>
+            var result = Assert.Throws<FormatException>(() =>
                         _converterService.TransformarLinhasEmObjeto(
                                     Environment.CurrentDirectory + CaminhoArquivoNubankErrado,
                                     DateTime.Now,
@@ -44,9 +44,9 @@ namespace ControleFinanceiro.UnitTests
         }
 
         [Fact]
-        public async Task testar_gerar_objeto_importacao_nubank_com_registros_excel()
+        public void testar_gerar_objeto_importacao_nubank_com_registros_excel()
         {
-            var result = await Assert.ThrowsAsync<FileLoadException>(() =>
+            var result = Assert.Throws<FileLoadException>(() =>
                         _converterService.TransformarLinhasEmObjeto(
                                     Environment.CurrentDirectory + CaminhoArquivoNubankExcel,
                                     DateTime.Now,
@@ -56,21 +56,21 @@ namespace ControleFinanceiro.UnitTests
         }
 
         [Fact]
-        public async Task testar_gerar_objeto_com_tipo_importacao_errado()
-        {          
-            var result = await Assert.ThrowsAsync<Exception>(() =>
+        public void testar_gerar_objeto_com_tipo_importacao_errado()
+        {
+            var result = Assert.Throws<Exception>(() =>
                  _converterService.TransformarLinhasEmObjeto(
                     Environment.CurrentDirectory + CaminhoArquivoNubank,
                     DateTime.Now,
                     TipoImportacao.C6Bank));
 
-            Assert.Contains("Não encontrado registros válidos para o tipo de importação escolhido", result.Message);
+            Assert.Contains("Tipo de importação inválida", result.Message);
         }
 
         [Fact]
-        public async Task testar_gerar_objeto_com_arquivo_invalido()
+        public void testar_gerar_objeto_com_arquivo_invalido()
         {
-            var result = await  Assert.ThrowsAsync<FormatException>(() =>
+            var result = Assert.Throws<FormatException>(() =>
                         _converterService.TransformarLinhasEmObjeto(
                                     Environment.CurrentDirectory + CaminhoArquivoC6Bank,
                                     DateTime.Now,
@@ -80,9 +80,9 @@ namespace ControleFinanceiro.UnitTests
         }
 
         [Fact]
-        public async Task testar_gerar_objeto_com_arquivo_inexistente()
+        public void testar_gerar_objeto_com_arquivo_inexistente()
         {
-            var result = await Assert.ThrowsAsync<DirectoryNotFoundException>(() =>
+            var result = Assert.Throws<DirectoryNotFoundException>(() =>
                         _converterService.TransformarLinhasEmObjeto(
                     "C:\\TesteDiretorioFalso\\testearquivo.csv",
                     DateTime.Now,
@@ -92,9 +92,9 @@ namespace ControleFinanceiro.UnitTests
         }
 
         [Fact]
-        public async Task testar_gerar_objeto_com_arquivo_inexistente_e_diretorio_certo_excecao()
+        public void testar_gerar_objeto_com_arquivo_inexistente_e_diretorio_certo_excecao()
         {
-            var result = await Assert.ThrowsAsync<FileNotFoundException>(() =>
+            var result = Assert.Throws<FileNotFoundException>(() =>
                         _converterService.TransformarLinhasEmObjeto(
                     Environment.CurrentDirectory + "\\NaoExiste.csv",
                     DateTime.Now,

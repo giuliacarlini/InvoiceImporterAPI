@@ -6,7 +6,7 @@ namespace ControleFinanceiro.Domain.Entities
     {
         public Lancamento(DateTime data, string categoria, string descricao, decimal valor, bool? parcelado, string parcela, string totalParcela, LancamentoImportacao lancamentoImportacao)
         {
-            IdLancamento = new Guid();
+            IdLancamento = Guid.NewGuid();
             Data = data;
             Categoria = categoria;
             Descricao = descricao;
@@ -30,23 +30,30 @@ namespace ControleFinanceiro.Domain.Entities
 
         public Lancamento(LancamentoImportacao lancamentoImportacao, string line, TipoImportacao tipoImportacao)
         {
-            if (tipoImportacao == TipoImportacao.Nubank)
+            switch (tipoImportacao)
             {
-                var lineSplitNu = line.Split(",");
+                case TipoImportacao.Nubank:
+                    var lineSplitNu = line.Split(",");
 
-                IdLancamento = new Guid();
-                Data = DateTime.Parse(lineSplitNu[0]);
-                Categoria = lineSplitNu[1];
-                Descricao = lineSplitNu[2];
-                Valor = decimal.Parse(lineSplitNu[3].Replace(".", ","), System.Globalization.NumberStyles.Currency);
-                Parcelado = LocalizarParcela(lineSplitNu[2], false) != "";
-                Parcela = LocalizarParcela(lineSplitNu[2], false);
-                TotalParcela = LocalizarParcela(lineSplitNu[2], true);
-                LancamentoImportacao = lancamentoImportacao;
+                    IdLancamento = Guid.NewGuid();
+                    Data = DateTime.Parse(lineSplitNu[0]);
+                    Categoria = lineSplitNu[1];
+                    Descricao = lineSplitNu[2];
+                    Valor = decimal.Parse(lineSplitNu[3].Replace(".", ","), System.Globalization.NumberStyles.Currency);
+                    Parcelado = LocalizarParcela(lineSplitNu[2], false) != "";
+                    Parcela = LocalizarParcela(lineSplitNu[2], false);
+                    TotalParcela = LocalizarParcela(lineSplitNu[2], true);
+
+                    break;
+                default:
+                    throw new Exception("Tipo de importação inválida");
             }
+
+            IdImportacao = lancamentoImportacao.IdImportacao;
+            LancamentoImportacao = lancamentoImportacao;
         }
 
-        private string LocalizarParcela(string descricao, bool TotalParcela)
+        private static string LocalizarParcela(string descricao, bool TotalParcela)
         {
             try
             {
