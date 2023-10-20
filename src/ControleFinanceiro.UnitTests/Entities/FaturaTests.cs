@@ -1,37 +1,38 @@
 ﻿using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Enum;
+using ControleFinanceiro.Domain.ValueObjects;
+using Flunt.Notifications;
 
 namespace ControleFinanceiro.UnitTests.Entities
 {
-    public class FaturaTests
+    public class FaturaTests : Notifiable
     {
         public static readonly object[][] CorrectData =
         {
           new object[] { 
               TipoImportacao.Nubank, 
-              new DateTime(2023,10,18),  
-              "TestedeNomedeArquivocommaisde50caracteresTesteTesteTeste.csv"},
-
-          new object[] {
-              TipoImportacao.C6Bank,
               new DateTime(2023,10,18),
-              ""}
+              Environment.CurrentDirectory + "\\Arquivos\\nubank\\nubank-2023-09.csv"},
+
         };
 
         [Theory, MemberData(nameof(CorrectData))]
-        public void testar_create_fatura(TipoImportacao tipoImportacao, DateTime dateTime, string nomeArquivo)
+        public void testar_create_fatura(TipoImportacao tipoImportacao, DateTime vencimento, string nomeArquivo)
         {
+            var caminhoArquivo = new CaminhoArquivo(nomeArquivo);
+            var fatura = new Fatura(tipoImportacao, vencimento, caminhoArquivo);
 
-            var faturaTest = new Fatura(tipoImportacao, dateTime, nomeArquivo);
+            if (Valid == false)
+                return;
 
-            
+            fatura.LerArquivoCSV();
 
-            Assert.NotNull(faturaTest);
-            Assert.True(Guid.Empty != faturaTest.IdFatura);
-            Assert.True(dateTime == faturaTest.Vencimento);
-            Assert.True(faturaTest.DataHoraCadastro.Date == DateTime.Now.Date);
-            Assert.True(nomeArquivo == faturaTest.NomeArquivo);
-            Assert.NotNull(faturaTest.Lancamentos);
+            Assert.NotNull(fatura);
+            Assert.True(Guid.Empty != fatura.IdFatura);
+            Assert.True(vencimento == fatura.Vencimento);
+            Assert.True(fatura.DataHoraCadastro.Date == DateTime.Now.Date);
+
+            Assert.True(fatura.Lancamentos?.Count() > 0);
         }
 
     }

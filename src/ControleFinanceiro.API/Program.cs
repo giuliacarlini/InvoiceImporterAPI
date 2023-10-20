@@ -11,7 +11,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ICadastrarFaturaService, CadastrarFaturaService>();
 builder.Services.AddScoped<IConverterService, ConverterService>();
 
 builder.Services.AddScoped<DbSession>();

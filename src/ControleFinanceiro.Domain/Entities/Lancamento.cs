@@ -4,19 +4,6 @@ namespace ControleFinanceiro.Domain.Entities
 {
     public class Lancamento
     {
-        public Lancamento(DateTime data, string categoria, string descricao, decimal valor, bool? parcelado, string parcela, string totalParcela, LancamentoImportacao lancamentoImportacao)
-        {
-            IdLancamento = Guid.NewGuid();
-            Data = data;
-            Categoria = categoria;
-            Descricao = descricao;
-            Valor = valor;
-            Parcelado = parcelado;
-            Parcela = parcela;
-            TotalParcela = totalParcela;
-            LancamentoImportacao = lancamentoImportacao;
-        }
-
         public Guid IdLancamento { get; private set; }
         public DateTime Data { get; private set; }
         public string Categoria { get; private set; } = string.Empty;
@@ -26,16 +13,16 @@ namespace ControleFinanceiro.Domain.Entities
         public string Parcela { get; private set; } = string.Empty;
         public string TotalParcela { get; private set; } = string.Empty;
         public Guid IdImportacao { get; private set; }
-        public virtual LancamentoImportacao? LancamentoImportacao { get; set; }
 
-        public Lancamento(LancamentoImportacao lancamentoImportacao, string line, TipoImportacao tipoImportacao)
+        public Lancamento(TipoImportacao tipoImportacao, string linha)
         {
+            IdLancamento = Guid.NewGuid();
+
             switch (tipoImportacao)
             {
                 case TipoImportacao.Nubank:
-                    var lineSplitNu = line.Split(",");
-
-                    IdLancamento = Guid.NewGuid();
+                    var lineSplitNu = linha.Split(",");
+                    
                     Data = DateTime.Parse(lineSplitNu[0]);
                     Categoria = lineSplitNu[1];
                     Descricao = lineSplitNu[2];
@@ -48,9 +35,6 @@ namespace ControleFinanceiro.Domain.Entities
                 default:
                     throw new Exception("Tipo de importação inválida");
             }
-
-            IdImportacao = lancamentoImportacao.IdImportacao;
-            LancamentoImportacao = lancamentoImportacao;
         }
 
         private static string LocalizarParcela(string descricao, bool TotalParcela)

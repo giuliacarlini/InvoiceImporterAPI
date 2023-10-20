@@ -27,7 +27,6 @@ namespace ControleFinanceiro.Infra.Repositories
                 "         @IdFatura)",
                importacao, _session.Transaction);
 
-            importacao.IdImportacao = id;
 
             return importacao;
         }

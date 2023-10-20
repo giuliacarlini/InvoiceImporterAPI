@@ -115,6 +115,10 @@
               "target": "Package",
               "version": "[2.0.151, )"
             },
+            "Flunt": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.1.1, )"

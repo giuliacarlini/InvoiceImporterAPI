@@ -1,34 +1,51 @@
 ﻿using ControleFinanceiro.Domain.Enum;
-using System.ComponentModel.DataAnnotations;
+using ControleFinanceiro.Domain.ValueObjects;
+using Flunt.Notifications;
 
 namespace ControleFinanceiro.Domain.Entities
 {
-    public class Fatura
+    public class Fatura : Notifiable
     {
-        public Fatura(TipoImportacao tipoImportacao, DateTime vencimento, string nomeArquivo)
+        private List<Lancamento> _lancamentos;
+
+        public Fatura(TipoImportacao tipoImportacao, DateTime vencimento, CaminhoArquivo caminhoArquivo)
         {
             IdFatura = Guid.NewGuid();
-            IdOrigem = (int)tipoImportacao;
+            TipoImportacao = tipoImportacao;
             Vencimento = vencimento;
             DataHoraCadastro = DateTime.Now;
-            NomeArquivo = nomeArquivo;
-            Lancamentos = new List<Lancamento>();
+            CaminhoArquivo = caminhoArquivo;
+            _lancamentos = new List<Lancamento>();
+
+            AddNotifications(caminhoArquivo);      
         }
 
         public Guid IdFatura { get; private set; }
 
-        [Required]
-        public int IdOrigem { get; private set; }
+        public TipoImportacao TipoImportacao { get; private set; }
 
-        [Required]
         public DateTime Vencimento { get; private set; }
 
-        [Required]
         public DateTime DataHoraCadastro { get; private set; }
 
-        [StringLength(50, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
-        public string NomeArquivo { get; private set; }
+        public CaminhoArquivo CaminhoArquivo { get; private set; }
 
-        public List<Lancamento> Lancamentos { get; set; }
+        public IReadOnlyCollection<Lancamento>? Lancamentos { get { return _lancamentos.ToArray(); } }
+
+        public void AdicionarLancamento(Lancamento lancamento)
+        {
+            _lancamentos.Add(lancamento);
+        }
+
+        public void LerArquivoCSV()
+        {
+            List<string> arquivo = File.ReadLines(CaminhoArquivo.Diretorio + CaminhoArquivo.Nome).ToList();
+
+            foreach (var linhas in arquivo.Skip(1))
+            {
+                var lancamento = new Lancamento(TipoImportacao, linhas);
+                AdicionarLancamento(lancamento);
+            }            
+        }
     }
 }
