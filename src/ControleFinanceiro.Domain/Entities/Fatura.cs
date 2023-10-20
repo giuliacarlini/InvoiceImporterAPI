@@ -1,16 +1,15 @@
 ﻿using ControleFinanceiro.Domain.Enum;
 using ControleFinanceiro.Domain.ValueObjects;
-using Flunt.Notifications;
+using ControleFinanceiro.Shared.Entities;
 
 namespace ControleFinanceiro.Domain.Entities
 {
-    public class Fatura : Notifiable
+    public class Fatura : Entity
     {
         private List<Lancamento> _lancamentos;
 
-        public Fatura(TipoImportacao tipoImportacao, DateTime vencimento, CaminhoArquivo caminhoArquivo)
+        public Fatura(ETipoImportacao tipoImportacao, DateTime vencimento, CaminhoArquivo caminhoArquivo)
         {
-            IdFatura = Guid.NewGuid();
             TipoImportacao = tipoImportacao;
             Vencimento = vencimento;
             DataHoraCadastro = DateTime.Now;
@@ -20,9 +19,7 @@ namespace ControleFinanceiro.Domain.Entities
             AddNotifications(caminhoArquivo);      
         }
 
-        public Guid IdFatura { get; private set; }
-
-        public TipoImportacao TipoImportacao { get; private set; }
+        public ETipoImportacao TipoImportacao { get; private set; }
 
         public DateTime Vencimento { get; private set; }
 
@@ -39,7 +36,7 @@ namespace ControleFinanceiro.Domain.Entities
 
         public void LerArquivoCSV()
         {
-            List<string> arquivo = File.ReadLines(CaminhoArquivo.Diretorio + CaminhoArquivo.Nome).ToList();
+            List<string> arquivo = File.ReadLines(CaminhoArquivo.Caminho).ToList();
 
             foreach (var linhas in arquivo.Skip(1))
             {

@@ -16,7 +16,6 @@ builder.Services.AddScoped<IConverterService, ConverterService>();
 builder.Services.AddScoped<DbSession>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IFaturaRepository, FaturaRepository>();
-builder.Services.AddTransient<ILancamentoImportacaoRepository, LancamentoImportacaoRepository>();
 builder.Services.AddTransient<ILancamentoRepository, LancamentoRepository>();
 
 var app = builder.Build();

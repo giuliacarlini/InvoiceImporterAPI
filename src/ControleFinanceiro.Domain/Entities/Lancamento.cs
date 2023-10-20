@@ -1,9 +1,41 @@
 ﻿using ControleFinanceiro.Domain.Enum;
+using ControleFinanceiro.Shared.Entities;
+using System.Globalization;
 
 namespace ControleFinanceiro.Domain.Entities
 {
-    public class Lancamento
+    public class Lancamento : Entity
     {
+        public Lancamento(ETipoImportacao tipoImportacao, string linha)
+        {
+            IdLancamento = Guid.NewGuid();
+
+            switch (tipoImportacao)
+            {
+                case ETipoImportacao.Nubank:
+                    var lineSplitNu = linha.Split(",");
+
+                    var data = DateTime.Parse(LerRegistro(lineSplitNu, 0));
+                    Data = data;
+
+                    Categoria = LerRegistro(lineSplitNu, 1);
+                    Descricao = LerRegistro(lineSplitNu, 2);
+
+                    if (ConverterDecimal(LerRegistro(lineSplitNu, 3), out decimal valor))
+                    {
+                        Valor = valor;
+                    }
+
+                    LocalizarParcela(LerRegistro(lineSplitNu, 2), out var parcela, out var totalParcela); 
+                    Parcela = parcela;
+                    TotalParcela = totalParcela;
+
+                    break;
+                default:
+                    throw new Exception("Tipo de importação inválida");
+            }
+        }
+
         public Guid IdLancamento { get; private set; }
         public DateTime Data { get; private set; }
         public string Categoria { get; private set; } = string.Empty;
@@ -12,56 +44,41 @@ namespace ControleFinanceiro.Domain.Entities
         public bool? Parcelado { get; private set; }
         public string Parcela { get; private set; } = string.Empty;
         public string TotalParcela { get; private set; } = string.Empty;
-        public Guid IdImportacao { get; private set; }
-
-        public Lancamento(TipoImportacao tipoImportacao, string linha)
+        private static bool ConverterDecimal(string valorOriginal, out decimal valor)
         {
-            IdLancamento = Guid.NewGuid();
-
-            switch (tipoImportacao)
-            {
-                case TipoImportacao.Nubank:
-                    var lineSplitNu = linha.Split(",");
-                    
-                    Data = DateTime.Parse(lineSplitNu[0]);
-                    Categoria = lineSplitNu[1];
-                    Descricao = lineSplitNu[2];
-                    Valor = decimal.Parse(lineSplitNu[3].Replace(".", ","), System.Globalization.NumberStyles.Currency);
-                    Parcelado = LocalizarParcela(lineSplitNu[2], false) != "";
-                    Parcela = LocalizarParcela(lineSplitNu[2], false);
-                    TotalParcela = LocalizarParcela(lineSplitNu[2], true);
-
-                    break;
-                default:
-                    throw new Exception("Tipo de importação inválida");
-            }
+            return decimal.TryParse(
+                                    valorOriginal,
+                                    NumberStyles.Number,
+                                    CultureInfo.InvariantCulture,
+                                    out valor);
         }
 
-        private static string LocalizarParcela(string descricao, bool TotalParcela)
+        private static string LerRegistro(string[] lineSplitNu, int posicao)
         {
-            try
+            return posicao < lineSplitNu.Length ? lineSplitNu[posicao].Trim() : "";
+        }
+
+        private void LocalizarParcela(string descricao, out string parcela, out string totalParcela)
+        {
+
+            if (descricao.IndexOf("/") > 0)
             {
-                if (descricao.IndexOf("/") > 0)
+                string[] retornoSplit = descricao.Split(' ');
+
+                foreach (string s in retornoSplit)
                 {
-                    string[] retornoSplit = descricao.Split(' ');
-
-                    foreach (string s in retornoSplit)
+                    if (s.Contains('/'))
                     {
-                        if (s.Contains("/"))
-                        {
-                            var resultado = TotalParcela ? s.Substring(s.IndexOf("/") + 1, new string(s.Reverse().ToArray()).IndexOf("/")) : s.Substring(0, s.IndexOf("/"));
+                        totalParcela = s.Substring(s.IndexOf("/") + 1, new string(s.Reverse().ToArray()).IndexOf("/"));
+                        parcela = s.Substring(0, s.IndexOf("/"));
 
-                            return int.Parse(resultado).ToString();
-                        }
+                        return;
                     }
                 }
             }
-            catch
-            {
-                return "";
-            }
 
-            return "";
+            parcela = "0";
+            totalParcela = "0";
         }
     }
 }

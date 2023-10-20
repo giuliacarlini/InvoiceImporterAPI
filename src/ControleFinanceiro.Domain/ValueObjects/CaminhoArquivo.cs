@@ -18,9 +18,8 @@ namespace ControleFinanceiro.Domain.ValueObjects
             );
         }
 
-        public string Diretorio { get; set; }
-        public string Nome { get; set; }
-
-
+        public string Diretorio { get; private set; }
+        public string Nome { get; private set; }
+        public string Caminho { get { return Diretorio + Nome; } }
     }
 }

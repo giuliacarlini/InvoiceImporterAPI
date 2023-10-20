@@ -1,6 +1,6 @@
 ﻿namespace ControleFinanceiro.Domain.Enum
 {
-    public enum TipoImportacao
+    public enum ETipoImportacao
     {
         Nubank = 0,
         C6Bank = 1

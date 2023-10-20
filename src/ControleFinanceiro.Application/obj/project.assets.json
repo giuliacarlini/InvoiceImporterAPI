@@ -1913,6 +1913,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "ControleFinanceiro.Shared": "1.0.0",
           "Dapper": "2.0.151",
           "Flunt": "1.0.2",
           "Microsoft.Data.SqlClient": "5.1.1"
@@ -1922,6 +1923,19 @@
         },
         "runtime": {
           "bin/placeholder/ControleFinanceiro.Domain.dll": {}
+        }
+      },
+      "ControleFinanceiro.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Flunt": "1.0.2"
+        },
+        "compile": {
+          "bin/placeholder/ControleFinanceiro.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ControleFinanceiro.Shared.dll": {}
         }
       }
     }
@@ -6255,6 +6269,11 @@
       "type": "project",
       "path": "../ControleFinanceiro.Domain/ControleFinanceiro.Domain.csproj",
       "msbuildProject": "../ControleFinanceiro.Domain/ControleFinanceiro.Domain.csproj"
+    },
+    "ControleFinanceiro.Shared/1.0.0": {
+      "type": "project",
+      "path": "../../ControleFinanceiro.Shared/ControleFinanceiro.Shared.csproj",
+      "msbuildProject": "../../ControleFinanceiro.Shared/ControleFinanceiro.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {

@@ -7,7 +7,7 @@ namespace ControleFinanceiro.Application
 {
     public class ConverterService : IConverterService
     {
-        public Fatura TransformarLinhasEmObjeto(string caminhoArquivo, DateTime vencimento, TipoImportacao tipoImportacao)
+        public Fatura TransformarLinhasEmObjeto(string caminhoArquivo, DateTime vencimento, ETipoImportacao tipoImportacao)
         {
             try
             {

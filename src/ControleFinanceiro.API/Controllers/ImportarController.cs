@@ -26,8 +26,8 @@ namespace ControleFinanceiroAPI.Controllers
             _converterService = converterService;
         }
 
-        [HttpPost("ImportarCSVNubank")]
-        public async Task<ActionResult> ImportarCSVNubank(string CaminhoArquivo, DateTime Vencimento)
+        [HttpPost("ImportarCSV")]
+        public async Task<ActionResult> ImportarCSV(string CaminhoArquivo, DateTime Vencimento)
         {
             if (_faturaRepository.BuscarFaturaPorNomeArquivo(Path.GetFileName(CaminhoArquivo)))
                 return BadRequest("Arquivo já importado!");
@@ -35,13 +35,7 @@ namespace ControleFinanceiroAPI.Controllers
             _unitOfWork.BeginTransaction();
             try
             {
-                //var fatura = await _converterService.TransformarLinhasEmObjeto(CaminhoArquivo, Vencimento, TipoImportacao.Nubank);
 
-               // var idFatura = _importarService.ImportarArquivo(CaminhoArquivo, Vencimento, TipoImportacao.Nubank, teste);
-                
-                _unitOfWork.Commit();
-
-                //return idFatura > 0 ? Ok(idFatura) : 
                 return NotFound("Fatura não importada.");
             }
             catch (Exception ex)

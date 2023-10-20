@@ -5,6 +5,6 @@ namespace ControleFinanceiro.Domain.Services
 {
     public interface IConverterService
     {
-        Fatura TransformarLinhasEmObjeto(string caminhoArquivo,DateTime vencimento, TipoImportacao tipoImportacao);
+        Fatura TransformarLinhasEmObjeto(string caminhoArquivo,DateTime vencimento, ETipoImportacao tipoImportacao);
     }
 }
