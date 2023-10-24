@@ -1,6 +1,6 @@
 ﻿using Flunt.Notifications;
 
-namespace ControleFinanceiro.Shared.Entities
+namespace ImportadorFatura.Shared.Entities
 {
     public abstract class Entity : Notifiable
     {

@@ -10,3 +10,7 @@ src/ControleFinanceiro.Infra.ImportarCSV/obj/
 src/ControleFinanceiro.API/obj/
 *.user
 .vs/
+/.vs
+ControleFinanceiro.UnitTests/obj/
+ControleFinanceiro.Domain/obj/
+ControleFinanceiro.Shared/obj/
