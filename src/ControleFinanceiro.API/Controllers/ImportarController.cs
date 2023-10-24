@@ -1,7 +1,6 @@
 using ControleFinanceiro.Domain.Adapters.Repository;
 using ControleFinanceiro.Domain.Data;
-using ControleFinanceiro.Domain.Enum;
-using ControleFinanceiro.Domain.Services;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleFinanceiroAPI.Controllers
@@ -11,19 +10,16 @@ namespace ControleFinanceiroAPI.Controllers
     public class ImportarController : ControllerBase
     {
         private readonly ILogger<ImportarController> _logger;
-        private readonly IConverterService _converterService;
         private readonly IFaturaRepository _faturaRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ImportarController(  ILogger<ImportarController> logger, 
-                                    IUnitOfWork unitOfWork, 
-                                    IFaturaRepository faturaRepository,
-                                    IConverterService converterService)
+        public ImportarController(ILogger<ImportarController> logger,
+                                    IUnitOfWork unitOfWork,
+                                    IFaturaRepository faturaRepository)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
             _faturaRepository = faturaRepository;
-            _converterService = converterService;
         }
 
         [HttpPost("ImportarCSV")]

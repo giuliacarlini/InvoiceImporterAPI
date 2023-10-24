@@ -9,8 +9,8 @@ namespace ControleFinanceiro.UnitTests.Entities
     {
         public static readonly object[][] CorrectData =
         {
-          new object[] { 
-              ETipoImportacao.Nubank, 
+          new object[] {
+              ETipoImportacao.Nubank,
               new DateTime(2023,10,18),
               Environment.CurrentDirectory + "\\Arquivos\\nubank\\nubank-2023-09.csv"},
         };
@@ -21,8 +21,14 @@ namespace ControleFinanceiro.UnitTests.Entities
             var caminhoArquivo = new CaminhoArquivo(nomeArquivo);
             var fatura = new Fatura(tipoImportacao, vencimento, caminhoArquivo);
 
+            string msg = string.Empty;
+            foreach (var notification in Notifications)
+            {
+                msg += notification.ToString() + "; ";
+            }
+
             if (Valid == false)
-                return;
+                Assert.Fail("O arquivo não foi validado: " + msg);
 
             fatura.LerArquivoCSV();
 
@@ -42,12 +48,14 @@ namespace ControleFinanceiro.UnitTests.Entities
             var fatura = new Fatura(tipoImportacao, vencimento, caminhoArquivo);
 
             var lancamento = new Lancamento(tipoImportacao, "2023-10-20,");
+
+            Assert.True(lancamento.Invalid);
             fatura.AdicionarLancamento(lancamento);
+
 
             Assert.True(fatura.Lancamentos?.Last().Id != Guid.Empty);
             Assert.True(fatura.Lancamentos?.Last().Categoria == "");
             Assert.True(fatura.Lancamentos?.Last().Data == new DateTime(2023, 10, 20));
         }
-
     }
 }

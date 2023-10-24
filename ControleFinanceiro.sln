@@ -11,9 +11,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Tests", "src\ControleFinanceiro.UnitTests\ControleFinanceiro.Tests.csproj", "{9B2AE6A5-CF95-4A2C-8217-35ED14781FB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.API", "src\ControleFinanceiro.API\ControleFinanceiro.API.csproj", "{5086A254-5FD9-419A-B646-737D043DA6CF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D0557E06-A96E-4A45-A475-F5D9F8F97D96} = {D0557E06-A96E-4A45-A475-F5D9F8F97D96}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Application", "src\ControleFinanceiro.Application\ControleFinanceiro.Application.csproj", "{D0557E06-A96E-4A45-A475-F5D9F8F97D96}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Infraestructure", "src\ControleFinanceiro.Infra\ControleFinanceiro.Infraestructure.csproj", "{A8A4F09D-4FAA-4728-886B-7CC62544A836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleFinanceiro.Shared", "ControleFinanceiro.Shared\ControleFinanceiro.Shared.csproj", "{0C2F1607-D27E-438C-B53F-81E79A83D795}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleFinanceiro.Shared", "ControleFinanceiro.Shared\ControleFinanceiro.Shared.csproj", "{0C2F1607-D27E-438C-B53F-81E79A83D795}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

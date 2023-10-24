@@ -1,5 +1,6 @@
 ﻿using ControleFinanceiro.Domain.Entities;
 using ControleFinanceiro.Domain.Enum;
+using Flunt.Notifications;
 
 namespace ControleFinanceiro.UnitTests.Entities
 {
@@ -67,6 +68,34 @@ namespace ControleFinanceiro.UnitTests.Entities
             Assert.True(lancamento.Valor == valor, "Valor inválido");
         }
 
-    }          
-    
+        [Fact]
+        public void testar_create_lancamento_invalido()
+        {
+            var lancamento = new Lancamento(ETipoImportacao.Nubank, "2019-10-20,,");
+
+            Assert.True(lancamento.Invalid);            
+
+            Assert.True(ValidarEntidades("Data", Lancamento.DataInvalida, lancamento.Notifications));
+
+            Assert.True(ValidarEntidades("Categoria", Lancamento.CategoriaInvalida, lancamento.Notifications));
+
+            Assert.True(ValidarEntidades("Descricao", Lancamento.DescriacaoInvalida, lancamento.Notifications));
+
+            Assert.True(ValidarEntidades("Valor", Lancamento.ValorInvalido, lancamento.Notifications));            
+        }
+
+        private bool ValidarEntidades(string Propriedade, string MensagemErro, IReadOnlyCollection<Notification> notifications1)
+        {
+            foreach (var notification in notifications1)
+            {
+                if (notification.Property == Propriedade)
+                {
+                    return notification.Message.Contains(MensagemErro);
+                }
+            }
+
+            return false;
+        }
+    }
+
 }

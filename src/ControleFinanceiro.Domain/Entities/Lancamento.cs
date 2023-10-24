@@ -1,11 +1,17 @@
 ﻿using ControleFinanceiro.Domain.Enum;
 using ControleFinanceiro.Shared.Entities;
+using Flunt.Validations;
 using System.Globalization;
 
 namespace ControleFinanceiro.Domain.Entities
 {
     public class Lancamento : Entity
     {
+        public const string DataInvalida = "A Data de Lançamento está muito antiga";
+        public const string CategoriaInvalida = "A Categoria deve ser preenchida";
+        public const string DescriacaoInvalida = "A Descrição deve ser preenhida";
+        public const string ValorInvalido = "O Valor deve ser maior que zero";
+
         public Lancamento(ETipoImportacao tipoImportacao, string linha)
         {
             IdLancamento = Guid.NewGuid();
@@ -26,14 +32,23 @@ namespace ControleFinanceiro.Domain.Entities
                         Valor = valor;
                     }
 
-                    LocalizarParcela(LerRegistro(lineSplitNu, 2), out var parcela, out var totalParcela); 
+                    LocalizarParcela(LerRegistro(lineSplitNu, 2), out var parcela, out var totalParcela);
                     Parcela = parcela;
                     TotalParcela = totalParcela;
 
                     break;
                 default:
-                    throw new Exception("Tipo de importação inválida");
+                    AddNotification("TipoImportacao","O Tipo Importação não foi implementado!");
+                    break;            
             }
+
+            AddNotifications(new Contract()
+                .Requires()
+                .IsGreaterThan(Data.Date, new DateTime(2020, 01, 01), "Data", string.Concat(DataInvalida, ": ", linha))
+                .HasMinLen(Categoria, 1, "Categoria", string.Concat(CategoriaInvalida, ": ", linha))
+                .HasMinLen(Descricao, 1, "Descricao", string.Concat(DescriacaoInvalida, " ", linha))
+                .IsTrue(Valor > 0, "Valor", string.Concat(ValorInvalido, " ", linha))
+                );
         }
 
         public Guid IdLancamento { get; private set; }
@@ -44,6 +59,7 @@ namespace ControleFinanceiro.Domain.Entities
         public bool? Parcelado { get; private set; }
         public string Parcela { get; private set; } = string.Empty;
         public string TotalParcela { get; private set; } = string.Empty;
+
         private static bool ConverterDecimal(string valorOriginal, out decimal valor)
         {
             return decimal.TryParse(
