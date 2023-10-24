@@ -14,3 +14,6 @@ src/ControleFinanceiro.API/obj/
 ControleFinanceiro.UnitTests/obj/
 ControleFinanceiro.Domain/obj/
 ControleFinanceiro.Shared/obj/
+ImportadorFatura.UnitTests/obj/
+ImportadorFatura.Shared/obj/
+ImportadorFatura.Domain/obj/

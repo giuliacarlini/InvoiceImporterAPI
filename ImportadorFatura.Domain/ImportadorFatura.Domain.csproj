@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ControleFinanceiro.Shared\ImportadorFatura.Shared.csproj" />
+    <ProjectReference Include="..\ImportadorFatura.Shared\ImportadorFatura.Shared.csproj" />
   </ItemGroup>
 
 </Project>
