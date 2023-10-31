@@ -1,10 +1,10 @@
-﻿namespace ImportadorFatura.Tests.Common
+﻿namespace ImporterInvoice.Tests.Common
 {
     public class Variaveis
     {
         public string RetornarCaminhoArquivoValido()
         {
-            return Environment.CurrentDirectory + "\\Arquivos\\nubank\\nubank-2023-09.csv";
+            return Environment.CurrentDirectory + "\\files\\nubank\\nubank-2023-09.csv";
         }
     }
 }

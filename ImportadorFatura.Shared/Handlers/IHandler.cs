@@ -1,5 +1,5 @@
-﻿using ImportadorFatura.Shared.Commands;
-namespace ImportadorFatura.Shared.Handlers
+﻿using ImporterInvoice.Shared.Commands;
+namespace ImporterInvoice.Shared.Handlers
 {
     public interface IHandler<T> where T : ICommand
     {

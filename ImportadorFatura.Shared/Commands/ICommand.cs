@@ -1,7 +1,7 @@
-﻿namespace ImportadorFatura.Shared.Commands
+﻿namespace ImporterInvoice.Shared.Commands
 {
     public interface ICommand
     {
-        void Validar();
+        void Validate();
     }
 }

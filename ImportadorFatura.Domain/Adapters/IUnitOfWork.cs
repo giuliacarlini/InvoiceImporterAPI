@@ -1,4 +1,4 @@
-﻿namespace ImportadorFatura.Domain.Data
+﻿namespace ImporterInvoice.Domain.Data
 {
     public interface IUnitOfWork
     {

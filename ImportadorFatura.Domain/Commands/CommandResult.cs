@@ -1,6 +1,6 @@
-﻿using ImportadorFatura.Shared.Commands;
+﻿using ImporterInvoice.Shared.Commands;
 
-namespace ImportadorFatura.Domain.Commands
+namespace ImporterInvoice.Domain.Commands
 {
     public class CommandResult : ICommandResult
     {
@@ -8,12 +8,12 @@ namespace ImportadorFatura.Domain.Commands
 
         public CommandResult(bool success, string message)
         {
-            Sucesso = success;
-            Mensagem = message;
+            Success = success;
+            Message = message;
         }
 
-        public bool Sucesso { get; set; }
-        public string Mensagem { get; set; } = string.Empty;
+        public bool Success { get; set; }
+        public string Message { get; set; } = string.Empty;
 
     }
 }
