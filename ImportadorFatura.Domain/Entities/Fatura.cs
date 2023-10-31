@@ -42,7 +42,10 @@ namespace ImportadorFatura.Domain.Entities
             {
                 var lancamento = new Lancamento(TipoImportacao, linhas);
                 AdicionarLancamento(lancamento);
-            }            
+            }
+
+            if (_lancamentos.Count == 0)
+                AddNotification("Lançamento", "Não foram encontrados lançamentos na fatura.");
         }
     }
 }

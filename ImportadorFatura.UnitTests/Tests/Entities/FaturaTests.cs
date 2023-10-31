@@ -2,17 +2,20 @@
 using ImportadorFatura.Domain.Enum;
 using ImportadorFatura.Domain.ValueObjects;
 using Flunt.Notifications;
+using ImportadorFatura.Tests.Common;
 
-namespace ImportadorFatura.UnitTests.Entities
+namespace ImportadorFatura.Tests.Tests.Entities
 {
     public class FaturaTests : Notifiable
     {
+
+
         public static readonly object[][] CorrectData =
         {
           new object[] {
               ETipoImportacao.Nubank,
               new DateTime(2023,10,18),
-              Environment.CurrentDirectory + "\\Arquivos\\nubank\\nubank-2023-09.csv"},
+              new Variaveis().RetornarCaminhoArquivoValido()},
         };
 
         [Theory, MemberData(nameof(CorrectData))]

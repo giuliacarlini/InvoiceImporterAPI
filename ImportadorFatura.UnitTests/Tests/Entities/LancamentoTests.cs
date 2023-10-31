@@ -2,7 +2,7 @@
 using ImportadorFatura.Domain.Enum;
 using Flunt.Notifications;
 
-namespace ImportadorFatura.UnitTests.Entities
+namespace ImportadorFatura.Tests.Tests.Entities
 {
     public class LancamentoTests
     {
@@ -73,7 +73,7 @@ namespace ImportadorFatura.UnitTests.Entities
         {
             var lancamento = new Lancamento(ETipoImportacao.Nubank, "2019-10-20,,");
 
-            Assert.True(lancamento.Invalid);            
+            Assert.True(lancamento.Invalid);
 
             Assert.True(ValidarEntidades("Data", Lancamento.DataInvalida, lancamento.Notifications));
 
@@ -81,7 +81,7 @@ namespace ImportadorFatura.UnitTests.Entities
 
             Assert.True(ValidarEntidades("Descricao", Lancamento.DescriacaoInvalida, lancamento.Notifications));
 
-            Assert.True(ValidarEntidades("Valor", Lancamento.ValorInvalido, lancamento.Notifications));            
+            Assert.True(ValidarEntidades("Valor", Lancamento.ValorInvalido, lancamento.Notifications));
         }
 
         private bool ValidarEntidades(string Propriedade, string MensagemErro, IReadOnlyCollection<Notification> notifications1)
