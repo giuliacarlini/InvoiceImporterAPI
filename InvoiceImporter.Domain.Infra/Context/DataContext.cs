@@ -1,4 +1,4 @@
-﻿using ImporterInvoice.Domain.Entities;
+﻿using InvoiceImporter.Domain.Entities;
 using InvoiceImporter.Domain.Infra.Mapping;
 using Microsoft.EntityFrameworkCore;
 

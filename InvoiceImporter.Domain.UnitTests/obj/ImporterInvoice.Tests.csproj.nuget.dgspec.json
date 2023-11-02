@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Infra\\InvoiceImporter.Domain.Infra.csproj": {}
+    "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.UnitTests\\ImporterInvoice.Tests.csproj": {}
   },
   "projects": {
-    "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Infra\\InvoiceImporter.Domain.Infra.csproj": {
+    "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Domain\\InvoiceImporter.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Infra\\InvoiceImporter.Domain.Infra.csproj",
-        "projectName": "InvoiceImporter.Domain.Infra",
-        "projectPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Infra\\InvoiceImporter.Domain.Infra.csproj",
+        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Domain\\InvoiceImporter.Domain.csproj",
+        "projectName": "InvoiceImporter.Domain",
+        "projectPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Domain\\InvoiceImporter.Domain.csproj",
         "packagesPath": "C:\\Users\\Giulia\\.nuget\\packages\\",
-        "outputPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Infra\\obj\\",
+        "outputPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -34,11 +34,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\InvoiceImporter.Domain.Shared.csproj": {
-                "projectPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\InvoiceImporter.Domain.Shared.csproj"
-              },
-              "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain\\InvoiceImporter.Domain.csproj": {
-                "projectPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain\\InvoiceImporter.Domain.csproj"
+              "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\ImporterInvoice.Shared.csproj": {
+                "projectPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\ImporterInvoice.Shared.csproj"
               }
             }
           }
@@ -53,29 +50,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
+            "Dapper": {
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[2.0.151, )"
             },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
+            "Flunt": {
               "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[1.0.2, )"
             },
-            "Microsoft.EntityFrameworkCore.InMemory": {
+            "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[6.0.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Relational": {
-              "target": "Package",
-              "version": "[7.0.13, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.13, )"
+              "version": "[5.1.1, )"
             }
           },
           "imports": [
@@ -98,14 +83,14 @@
         }
       }
     },
-    "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\InvoiceImporter.Domain.Shared.csproj": {
+    "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\ImporterInvoice.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\InvoiceImporter.Domain.Shared.csproj",
-        "projectName": "InvoiceImporter.Domain.Shared",
-        "projectPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\InvoiceImporter.Domain.Shared.csproj",
+        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\ImporterInvoice.Shared.csproj",
+        "projectName": "ImporterInvoice.Shared",
+        "projectPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\ImporterInvoice.Shared.csproj",
         "packagesPath": "C:\\Users\\Giulia\\.nuget\\packages\\",
-        "outputPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\obj\\",
+        "outputPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -165,14 +150,14 @@
         }
       }
     },
-    "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain\\InvoiceImporter.Domain.csproj": {
+    "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.UnitTests\\ImporterInvoice.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain\\InvoiceImporter.Domain.csproj",
-        "projectName": "InvoiceImporter.Domain",
-        "projectPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain\\InvoiceImporter.Domain.csproj",
+        "projectUniqueName": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.UnitTests\\ImporterInvoice.Tests.csproj",
+        "projectName": "ImporterInvoice.Tests",
+        "projectPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.UnitTests\\ImporterInvoice.Tests.csproj",
         "packagesPath": "C:\\Users\\Giulia\\.nuget\\packages\\",
-        "outputPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain\\obj\\",
+        "outputPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.UnitTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -195,8 +180,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\InvoiceImporter.Domain.Shared.csproj": {
-                "projectPath": "C:\\projetos\\ControleFinanceiro\\InvoiceImporter.Domain.Shared\\InvoiceImporter.Domain.Shared.csproj"
+              "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Domain\\InvoiceImporter.Domain.csproj": {
+                "projectPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Domain\\InvoiceImporter.Domain.csproj"
+              },
+              "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\ImporterInvoice.Shared.csproj": {
+                "projectPath": "C:\\projetos\\ControleFinanceiro\\ImportadorFatura.Shared\\ImporterInvoice.Shared.csproj"
               }
             }
           }
@@ -211,17 +199,29 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Dapper": {
+            "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[2.0.151, )"
+              "version": "[17.5.0, )"
             },
-            "Flunt": {
+            "Moq": {
               "target": "Package",
-              "version": "[1.0.2, )"
+              "version": "[4.20.69, )"
             },
-            "Microsoft.Data.SqlClient": {
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[5.1.1, )"
+              "version": "[3.2.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
             }
           },
           "imports": [
