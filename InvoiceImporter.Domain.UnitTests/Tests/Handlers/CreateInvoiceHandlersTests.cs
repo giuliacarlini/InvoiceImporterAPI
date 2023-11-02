@@ -11,7 +11,7 @@ namespace ImporterInvoice.Tests.Handlers
         [Fact]
         public void testar_importacao_fatura_nubank_invalido()
         {
-            var handlerFatura = new CreateInvoiceHandler(new FakeInvoiceRepository());
+            var handlerFatura = new InvoiceHandler(new FakeInvoiceRepository());
 
             var command = new CreateInvoiceCommand()
             {
@@ -28,7 +28,7 @@ namespace ImporterInvoice.Tests.Handlers
         [Fact]
         public void testar_importacao_fatura_nubank_valido()
         {
-            var handlerFatura = new CreateInvoiceHandler(new FakeInvoiceRepository());
+            var handlerFatura = new InvoiceHandler(new FakeInvoiceRepository());
 
 
             var command = new CreateInvoiceCommand()

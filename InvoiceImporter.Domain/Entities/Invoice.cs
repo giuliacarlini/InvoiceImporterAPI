@@ -6,7 +6,9 @@ namespace InvoiceImporter.Domain.Entities
 {
     public class Invoice : Entity
     {
-        private List<InvoiceItem> _invoiceItems;
+        private List<InvoiceItem>? _invoiceItems;
+
+        public Invoice() { }
 
         public Invoice(EImportType importType, DateTime dueDate, FilePath filePath)
         {
@@ -25,26 +27,29 @@ namespace InvoiceImporter.Domain.Entities
 
         public DateTime RegisterDate { get; private set; }
 
-        public FilePath FilePath { get; private set; }
+        public FilePath? FilePath { get; private set; }
 
-        public IReadOnlyCollection<InvoiceItem>? InvoiceItems { get { return _invoiceItems.ToArray(); } }
+        public IReadOnlyCollection<InvoiceItem>? InvoiceItems { get { return _invoiceItems?.ToArray(); } }
 
         public void AddInvoiceItem(InvoiceItem invoiceItem)
         {
-            _invoiceItems.Add(invoiceItem);
+            _invoiceItems?.Add(invoiceItem);
         }
 
         public void ReadFileCSV()
         {
-            List<string> file = File.ReadLines(FilePath.ToString()).ToList();
-
-            foreach (var lines in file.Skip(1))
+            if (FilePath is not null)
             {
-                var invoiceItem = new InvoiceItem(ImportType, lines);
-                AddInvoiceItem(invoiceItem);
+                List<string> file = File.ReadLines(FilePath.ToString()).ToList();
+
+                foreach (var lines in file.Skip(1))
+                {
+                    var invoiceItem = new InvoiceItem(ImportType, lines);
+                    AddInvoiceItem(invoiceItem);
+                }
             }
 
-            if (_invoiceItems.Count == 0)
+            if (_invoiceItems?.Count == 0)
                 AddNotification("Itens da Fatura", "Não foram encontrados itens na fatura");
         }
 

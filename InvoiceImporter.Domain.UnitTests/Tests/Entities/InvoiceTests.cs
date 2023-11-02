@@ -8,8 +8,6 @@ namespace ImporterInvoice.Tests.Tests.Entities
 {
     public class InvoiceTests : Notifiable
     {
-
-
         public static readonly object[][] CorrectData =
         {
           new object[] {
@@ -54,7 +52,6 @@ namespace ImporterInvoice.Tests.Tests.Entities
 
             Assert.True(lancamento.Invalid);
             fatura.AddInvoiceItem(lancamento);
-
 
             Assert.True(fatura.InvoiceItems?.Last().Id != Guid.Empty);
             Assert.True(fatura.InvoiceItems?.Last().Category == "");

@@ -4,6 +4,6 @@ namespace InvoiceImporter.Domain.Adapters.Repository
 {
     public interface IInvoiceItemRepository
     {
-        void Save(InvoiceItem invoiceItem);
+        void Add(IEnumerable<InvoiceItem> invoiceItems);
     }
 }

@@ -21,3 +21,4 @@ ImportadorFatura.Domain/obj/
 InvoiceImporter.Domain.Infra/obj/
 InvoiceImporter.Domain.Shared/obj/
 InvoiceImporter.Domain.UnitTests/obj/
+InvoiceImporter.API/obj/

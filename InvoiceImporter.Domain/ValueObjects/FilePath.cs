@@ -5,6 +5,8 @@ namespace InvoiceImporter.Domain.ValueObjects
 {
     public class FilePath : Notifiable
     {
+        public FilePath() { }
+
         public FilePath(string filePath)
         {
             Name = filePath.Split('\\').Last();
@@ -18,8 +20,8 @@ namespace InvoiceImporter.Domain.ValueObjects
             );
         }
 
-        public string Path { get; private set; }
-        public string Name { get; private set; }
+        public string? Path { get; private set; }
+        public string? Name { get; private set; }
         public override string ToString() { return Path + Name; }
     }
 }

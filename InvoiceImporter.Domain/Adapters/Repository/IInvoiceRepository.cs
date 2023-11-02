@@ -8,5 +8,6 @@ namespace InvoiceImporter.Domain.Adapters.Repository
         void Add(Invoice invoice);
         bool FindInvoice(string nameFile);
         bool FindInvoice(DateTime dueDate, EImportType importType);
+        IEnumerable<Invoice> FindAll();
     }
 }

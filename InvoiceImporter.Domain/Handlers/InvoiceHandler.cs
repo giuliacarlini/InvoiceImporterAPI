@@ -8,13 +8,16 @@ using InvoiceImporter.Domain.ValueObjects;
 
 namespace InvoiceImporter.Domain.Handlers
 {
-    public class CreateInvoiceHandler : Notifiable, IHandler<CreateInvoiceCommand>
+    public class InvoiceHandler : Notifiable, IHandler<CreateInvoiceCommand>
     {
         private readonly IInvoiceRepository _invoiceRepository;
+        private readonly IInvoiceItemRepository _invoiceItemRepository;
 
-        public CreateInvoiceHandler(IInvoiceRepository invoiceRepository)
+        public InvoiceHandler(IInvoiceRepository invoiceRepository,
+            IInvoiceItemRepository invoiceItemRepository)
         {
             _invoiceRepository = invoiceRepository;
+            _invoiceItemRepository = invoiceItemRepository;
         }
 
         public ICommandResult Handle(CreateInvoiceCommand command)
@@ -47,10 +50,15 @@ namespace InvoiceImporter.Domain.Handlers
                     "Não foi possível importar a fatura.",
                     command.Notifications);
 
+            if (invoice.InvoiceItems is not null)
+                _invoiceItemRepository.Add(invoice.InvoiceItems);
+
+            _invoiceRepository.Add(invoice);
+
             return new CommandResult(
                 true,
                 "Fatura importada com sucesso!",
-                null);
+                invoice);
         }
     }
 }

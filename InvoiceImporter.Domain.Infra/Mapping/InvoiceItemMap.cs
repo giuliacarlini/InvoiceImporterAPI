@@ -32,6 +32,7 @@ namespace InvoiceImporter.Domain.Infra.Mapping
                 .HasColumnName("TotalInstallments")
                 .IsRequired(false);
 
+            builder.Ignore(x => x.Notifications);
         }
     }
 }

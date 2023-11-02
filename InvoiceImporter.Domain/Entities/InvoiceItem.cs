@@ -12,6 +12,15 @@ namespace InvoiceImporter.Domain.Entities
         public const string InvalidDescription = "A Descrição deve ser preenhida";
         public const string InvalidValue = "O Valor deve ser maior que zero";
 
+        public InvoiceItem() { }
+
+        public DateTime Date { get; private set; }
+        public string Category { get; private set; } = string.Empty;
+        public string Description { get; private set; } = string.Empty;
+        public decimal Value { get; private set; }
+        public string CurrentyInstallments { get; private set; } = string.Empty;
+        public string TotalInstallments { get; private set; } = string.Empty;
+
         public InvoiceItem(EImportType tipoImportacao, string linha)
         {
             switch (tipoImportacao)
@@ -48,13 +57,6 @@ namespace InvoiceImporter.Domain.Entities
                 .IsTrue(Value > 0, "Valor", string.Concat(InvalidValue, " ", linha))
                 );
         }
-
-        public DateTime Date { get; private set; }
-        public string Category { get; private set; } = string.Empty;
-        public string Description { get; private set; } = string.Empty;
-        public decimal Value { get; private set; }
-        public string CurrentyInstallments { get; private set; } = string.Empty;
-        public string TotalInstallments { get; private set; } = string.Empty;
 
         private static bool ConvertDecimal(string originalValue, out decimal value)
         {

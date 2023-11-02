@@ -36,6 +36,10 @@ namespace InvoiceImporter.Domain.Infra.Mapping
                 .HasColumnName("FilePath")
                 .IsRequired(true);
 
+            builder.OwnsOne(x => x.FilePath)
+                .Ignore(x => x.Notifications);
+        
+            builder.Ignore(x => x.Notifications);
         }
     }
 }
