@@ -22,7 +22,10 @@ namespace ImporterInvoice.Domain.Handlers
             command.Validate();
 
             if (command.Invalid)
-                return new CommandResult() { Success = false, Message = command.Notifications.Last().Message };
+                return new CommandResult(
+                    false, 
+                    "Não foi possível importar a fatura!",
+                    command.Notifications);
 
             if (_invoiceRepository.FindInvoice(command.FilePath))
                 AddNotification("CaminhoArquivo", "O Arquivo já foi adicionado anteriormente.");
@@ -32,16 +35,22 @@ namespace ImporterInvoice.Domain.Handlers
 
             var filePath = new FilePath(command.FilePath);
 
-            var fatura = new Invoice(command.ImportType, command.DueDate, filePath);         
+            var invoice = new Invoice(command.ImportType, command.DueDate, filePath);         
 
-            fatura.ReadFileCSV();
+            invoice.ReadFileCSV();
 
-            AddNotifications(fatura, filePath);
+            AddNotifications(invoice, filePath);
 
-            if (Invalid)
-                return new CommandResult() { Success = false, Message = "Não foi possível importar a fatura." };
+            if (command.Invalid)
+                return new CommandResult(
+                    false, 
+                    "Não foi possível importar a fatura.", 
+                    command.Notifications );
 
-            return new CommandResult() { Success = true, Message = "" };
+            return new CommandResult(
+                true, 
+                "Fatura importada com sucesso!", 
+                null);
         }
     }
 }

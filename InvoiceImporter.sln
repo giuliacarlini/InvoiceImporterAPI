@@ -8,9 +8,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceImporter.Domain", "I
 		{9FA0FC9B-AC17-456E-9556-D5E18FC1E2F8} = {9FA0FC9B-AC17-456E-9556-D5E18FC1E2F8}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceImporter.Tests", "ImportadorFatura.UnitTests\InvoiceImporter.Tests.csproj", "{9B2AE6A5-CF95-4A2C-8217-35ED14781FB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceImporter.Domain.Tests", "ImportadorFatura.UnitTests\InvoiceImporter.Domain.Tests.csproj", "{9B2AE6A5-CF95-4A2C-8217-35ED14781FB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceImporter.Shared", "ImportadorFatura.Shared\InvoiceImporter.Shared.csproj", "{9FA0FC9B-AC17-456E-9556-D5E18FC1E2F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceImporter.Domain.Shared", "ImportadorFatura.Shared\InvoiceImporter.Domain.Shared.csproj", "{9FA0FC9B-AC17-456E-9556-D5E18FC1E2F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceImporter.Domain.Infra", "InvoiceImporter.Domain.Infra\InvoiceImporter.Domain.Infra.csproj", "{05C3C2E9-6A8D-454F-9372-5E50A59B22BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,10 @@ Global
 		{9FA0FC9B-AC17-456E-9556-D5E18FC1E2F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FA0FC9B-AC17-456E-9556-D5E18FC1E2F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FA0FC9B-AC17-456E-9556-D5E18FC1E2F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05C3C2E9-6A8D-454F-9372-5E50A59B22BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C3C2E9-6A8D-454F-9372-5E50A59B22BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C3C2E9-6A8D-454F-9372-5E50A59B22BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C3C2E9-6A8D-454F-9372-5E50A59B22BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

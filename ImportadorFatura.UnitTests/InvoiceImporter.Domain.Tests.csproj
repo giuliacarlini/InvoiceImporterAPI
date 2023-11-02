@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ImportadorFatura.Domain\InvoiceImporter.Domain.csproj" />
-    <ProjectReference Include="..\ImportadorFatura.Shared\InvoiceImporter.Shared.csproj" />
+    <ProjectReference Include="..\ImportadorFatura.Shared\InvoiceImporter.Domain.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

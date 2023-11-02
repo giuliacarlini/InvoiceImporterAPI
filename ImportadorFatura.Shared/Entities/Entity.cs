@@ -2,7 +2,7 @@
 
 namespace ImporterInvoice.Shared.Entities
 {
-    public abstract class Entity : Notifiable
+    public abstract class Entity : Notifiable, IEquatable<Entity>
     {
         public Entity()
         {
@@ -10,5 +10,10 @@ namespace ImporterInvoice.Shared.Entities
         }
 
         public Guid Id { get; private set; }
+
+        public bool Equals(Entity? other)
+        {
+            return Id == other?.Id;
+        }
     }
 }

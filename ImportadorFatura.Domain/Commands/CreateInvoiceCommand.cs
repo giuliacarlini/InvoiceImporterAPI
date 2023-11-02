@@ -11,7 +11,6 @@ namespace ImporterInvoice.Domain.Commands
         public EImportType ImportType { get; set; }
         public DateTime DueDate { get; set; }
         public string FilePath { get; set; } = string.Empty;
-
         public void Validate()
         {
             AddNotifications(new Contract()

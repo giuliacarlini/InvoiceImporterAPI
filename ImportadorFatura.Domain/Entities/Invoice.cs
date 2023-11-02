@@ -10,7 +10,7 @@ namespace ImporterInvoice.Domain.Entities
 
         public Invoice(EImportType importType, DateTime dueDate, FilePath filePath)
         {
-            InvoiceType = importType;
+            ImportType = importType;
             DueDate = dueDate;
             RegisterDate = DateTime.Now;
             FilePath = filePath;
@@ -19,7 +19,7 @@ namespace ImporterInvoice.Domain.Entities
             AddNotifications(filePath);      
         }
 
-        public EImportType InvoiceType { get; private set; }
+        public EImportType ImportType { get; private set; }
 
         public DateTime DueDate { get; private set; }
 
@@ -40,12 +40,13 @@ namespace ImporterInvoice.Domain.Entities
 
             foreach (var lines in file.Skip(1))
             {
-                var invoiceItem = new InvoiceItem(InvoiceType, lines);
+                var invoiceItem = new InvoiceItem(ImportType, lines);
                 AddInvoiceItem(invoiceItem);
             }
 
             if (_invoiceItems.Count == 0)
                 AddNotification("Itens da Fatura", "Não foram encontrados itens na fatura");
         }
+
     }
 }

@@ -40,7 +40,7 @@ namespace ImporterInvoice.Tests.Tests.Entities
             Assert.True(vencimento == invoice.DueDate);
             Assert.True(invoice.RegisterDate.Date == DateTime.Now.Date);
             Assert.True(invoice.InvoiceItems?.Count > 0);
-            Assert.True(invoice.InvoiceType == EImportType.Nubank);
+            Assert.True(invoice.ImportType == EImportType.Nubank);
             Assert.True(invoice.FilePath.ToString() == invoice.FilePath.Path + invoice.FilePath.Name);
         }
 

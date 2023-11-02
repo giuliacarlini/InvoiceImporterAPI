@@ -1,7 +1,9 @@
-﻿namespace ImporterInvoice.Shared.Commands
+﻿using Flunt.Validations;
+
+namespace ImporterInvoice.Shared.Commands
 {
-    public interface ICommand
+    public interface ICommand : IValidatable
     {
-        void Validate();
+
     }
 }
