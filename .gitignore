@@ -18,3 +18,6 @@ ImportadorFatura.UnitTests/obj/
 ImportadorFatura.Shared/obj/
 ImportadorFatura.Domain/obj/
 /InvoiceImporter.Domain/obj
+InvoiceImporter.Domain.Infra/obj/
+InvoiceImporter.Domain.Shared/obj/
+InvoiceImporter.Domain.UnitTests/obj/
