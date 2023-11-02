@@ -17,3 +17,4 @@ ControleFinanceiro.Shared/obj/
 ImportadorFatura.UnitTests/obj/
 ImportadorFatura.Shared/obj/
 ImportadorFatura.Domain/obj/
+/InvoiceImporter.Domain/obj
