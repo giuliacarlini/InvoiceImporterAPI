@@ -11,6 +11,11 @@ namespace ImporterInvoice.Tests.Mocks
 
         }
 
+        public IEnumerable<Invoice> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool FindInvoice(string nomeArquivo)
         {
             return false;

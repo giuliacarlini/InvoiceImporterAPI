@@ -1,6 +1,7 @@
 ﻿using ImporterInvoice.Tests.Common;
 using ImporterInvoice.Tests.Mocks;
 using InvoiceImporter.Domain.Commands;
+using InvoiceImporter.Domain.Commands.Request;
 using InvoiceImporter.Domain.Enum;
 using InvoiceImporter.Domain.Handlers;
 
@@ -11,9 +12,12 @@ namespace ImporterInvoice.Tests.Handlers
         [Fact]
         public void testar_importacao_fatura_nubank_invalido()
         {
-            var handlerFatura = new InvoiceHandler(new FakeInvoiceRepository());
+            var handlerFatura = new InvoiceHandler(
+                new FakeInvoiceRepository(),
+                new FakeInvoiceItemRepository()
+            );
 
-            var command = new CreateInvoiceCommand()
+            var command = new CreateInvoiceRequest()
             {
                 ImportType = EImportType.Nubank,
                 FilePath = "C:\\Teste\\Teste.csv",
@@ -28,13 +32,15 @@ namespace ImporterInvoice.Tests.Handlers
         [Fact]
         public void testar_importacao_fatura_nubank_valido()
         {
-            var handlerFatura = new InvoiceHandler(new FakeInvoiceRepository());
+            var handlerFatura = new InvoiceHandler(
+                new FakeInvoiceRepository(),
+                new FakeInvoiceItemRepository()
+                );
 
-
-            var command = new CreateInvoiceCommand()
+            var command = new CreateInvoiceRequest()
             {
                 ImportType = EImportType.Nubank,
-                FilePath = new Variaveis().RetornarCaminhoArquivoValido(),
+                FilePath = Const.CaminhoArquivoValido,
                 DueDate = new DateTime(2023, 10, 26)
             };
 

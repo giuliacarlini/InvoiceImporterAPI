@@ -18,5 +18,10 @@ namespace InvoiceImporter.Domain.Infra.Repositories
             _context.AddRange(invoiceItems);
             _context.SaveChanges();            
         }
+
+        public IEnumerable<InvoiceItem> FindAll(Guid Id)
+        {
+            return _context.InvoiceItem.Where(x => x.IdInvoice == Id).ToList();
+        }
     }
 }

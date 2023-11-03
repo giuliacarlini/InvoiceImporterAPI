@@ -13,7 +13,7 @@ namespace ImporterInvoice.Tests.Tests.Entities
           new object[] {
               EImportType.Nubank,
               new DateTime(2023,10,18),
-              new Variaveis().RetornarCaminhoArquivoValido()},
+              Const.CaminhoArquivoValido},
         };
 
         [Theory, MemberData(nameof(CorrectData))]
@@ -39,7 +39,7 @@ namespace ImporterInvoice.Tests.Tests.Entities
             Assert.True(invoice.RegisterDate.Date == DateTime.Now.Date);
             Assert.True(invoice.InvoiceItems?.Count > 0);
             Assert.True(invoice.ImportType == EImportType.Nubank);
-            Assert.True(invoice.FilePath.ToString() == invoice.FilePath.Path + invoice.FilePath.Name);
+            Assert.True(invoice.FilePath?.ToString() == invoice.FilePath?.Path + invoice.FilePath?.Name);
         }
 
         [Theory, MemberData(nameof(CorrectData))]
@@ -48,7 +48,7 @@ namespace ImporterInvoice.Tests.Tests.Entities
             var caminhoArquivo = new FilePath(nomeArquivo);
             var fatura = new Invoice(tipoImportacao, vencimento, caminhoArquivo);
 
-            var lancamento = new InvoiceItem(tipoImportacao, "2023-10-20,");
+            var lancamento = new InvoiceItem(tipoImportacao, "2023-10-20,", fatura.Id);
 
             Assert.True(lancamento.Invalid);
             fatura.AddInvoiceItem(lancamento);

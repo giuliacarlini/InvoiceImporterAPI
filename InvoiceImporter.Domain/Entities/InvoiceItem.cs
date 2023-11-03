@@ -20,9 +20,12 @@ namespace InvoiceImporter.Domain.Entities
         public decimal Value { get; private set; }
         public string CurrentyInstallments { get; private set; } = string.Empty;
         public string TotalInstallments { get; private set; } = string.Empty;
+        public Guid IdInvoice { get; private set; }
 
-        public InvoiceItem(EImportType tipoImportacao, string linha)
+        public InvoiceItem(EImportType tipoImportacao, string linha, Guid idInvoice)
         {
+            IdInvoice = idInvoice;
+
             switch (tipoImportacao)
             {
                 case EImportType.Nubank:

@@ -1,12 +1,12 @@
 ﻿using ImporterInvoice.Domain.Shared.Commands;
 
-namespace InvoiceImporter.Domain.Commands
+namespace InvoiceImporter.Domain.Commands.Response
 {
-    public class CommandResult : ICommandResult
+    public class CommandResponse : ICommandResult
     {
-        public CommandResult() { }
+        public CommandResponse() { }
 
-        public CommandResult(bool success, string message, object? data)
+        public CommandResponse(bool success, string message, object? data)
         {
             Success = success;
             Message = message;

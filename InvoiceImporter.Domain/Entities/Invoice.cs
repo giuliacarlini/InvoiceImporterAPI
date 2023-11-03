@@ -44,7 +44,7 @@ namespace InvoiceImporter.Domain.Entities
 
                 foreach (var lines in file.Skip(1))
                 {
-                    var invoiceItem = new InvoiceItem(ImportType, lines);
+                    var invoiceItem = new InvoiceItem(ImportType, lines, Id);
                     AddInvoiceItem(invoiceItem);
                 }
             }
