@@ -5,11 +5,22 @@ using InvoiceImporter.Domain.Commands.Request;
 using InvoiceImporter.Domain.Commands.Response;
 using InvoiceImporter.Domain.Enum;
 using InvoiceImporter.Domain.Handlers;
+using InvoiceImporter.Domain.Infra.Context;
+using InvoiceImporter.Domain.Settings;
+using InvoiceImporter.Domain.Tests.Tests.Mocks;
+using Microsoft.Extensions.Options;
 
 namespace ImporterInvoice.Tests.Tests.Commands
 {
     public class CreateInvoiceTests
     {
+        IOptions<AppSettings> appSettings;
+
+        public CreateInvoiceTests() 
+        {
+            appSettings = Options.Create(new AppSettings());
+        }
+
         [Fact]
         public void testar_criar_fatura_command_fast_validation_sucesso()
         {
@@ -50,9 +61,13 @@ namespace ImporterInvoice.Tests.Tests.Commands
                 FilePath = "C:\\Teste\\teste.csv"
             };
 
+            var unitOfWork = new FakeUnitOfWork();
+
             var invoiceHandler = new InvoiceHandler(
                 new FakeInvoiceRepository(),
-                new FakeInvoiceItemRepository());
+                new FakeInvoiceItemRepository(),
+                appSettings,
+                unitOfWork);
 
             var response = (CommandResponse)invoiceHandler.Handle(FaturaCommand);
 
@@ -69,9 +84,13 @@ namespace ImporterInvoice.Tests.Tests.Commands
                 FilePath = "C:\\Teste\\teste.csv"
             };
 
+            var unitOfWork =  new FakeUnitOfWork();
+
             var invoiceHandler = new InvoiceHandler(
                 new FakeInvoiceRepository(),
-                new FakeInvoiceItemRepository());
+                new FakeInvoiceItemRepository(),
+                appSettings,
+                unitOfWork);
 
             var response = (CommandResponse)invoiceHandler.Handle(FaturaCommand);
 

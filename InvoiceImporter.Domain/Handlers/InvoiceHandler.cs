@@ -1,11 +1,15 @@
-﻿using Flunt.Notifications;
+﻿using Azure.Identity;
+using Flunt.Notifications;
 using ImporterInvoice.Domain.Shared.Commands;
 using ImporterInvoice.Domain.Shared.Handlers;
+using InvoiceImporter.Domain.Adapters;
 using InvoiceImporter.Domain.Adapters.Repository;
 using InvoiceImporter.Domain.Commands.Request;
 using InvoiceImporter.Domain.Commands.Response;
 using InvoiceImporter.Domain.Entities;
+using InvoiceImporter.Domain.Settings;
 using InvoiceImporter.Domain.ValueObjects;
+using Microsoft.Extensions.Options;
 
 namespace InvoiceImporter.Domain.Handlers
 {
@@ -13,12 +17,18 @@ namespace InvoiceImporter.Domain.Handlers
     {
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly IInvoiceItemRepository _invoiceItemRepository;
+        private readonly IOptions<AppSettings> _appSettings;
+        private readonly IUnitOfWork _unitOfWork;
 
         public InvoiceHandler(IInvoiceRepository invoiceRepository,
-            IInvoiceItemRepository invoiceItemRepository)
+            IInvoiceItemRepository invoiceItemRepository,
+            IOptions<AppSettings> appSettings,
+            IUnitOfWork unitOfWork)
         {
             _invoiceRepository = invoiceRepository;
             _invoiceItemRepository = invoiceItemRepository;
+            _appSettings = appSettings;
+            _unitOfWork = unitOfWork;
         }
 
         public ICommandResult Handle(FindAllInvoicesRequest request) 
@@ -46,7 +56,6 @@ namespace InvoiceImporter.Domain.Handlers
                     listCreateInvoiceItemResponse.Add(invoiceItemResponse);
                 }
 
-
                 var _invoiceResponse = new CreateInvoiceResponse()
                 {
                     ImportType = invoice.ImportType,
@@ -62,7 +71,6 @@ namespace InvoiceImporter.Domain.Handlers
                 "Consulta realizada com sucesso!",
                 listResponse);
         }
-
 
         public ICommandResult Handle(CreateInvoiceRequest command)
         {
@@ -93,6 +101,8 @@ namespace InvoiceImporter.Domain.Handlers
 
                 if (_invoice.InvoiceItems is not null)
                 {
+                    _invoiceRepository.Add(_invoice);
+
                     _invoiceItemRepository.Add(_invoice.InvoiceItems);
 
                     foreach (var item in _invoice.InvoiceItems)
@@ -108,10 +118,10 @@ namespace InvoiceImporter.Domain.Handlers
                         };
 
                         itemsResponse.Add(itemResponse);
-                    }
-
-                    _invoiceRepository.Add(_invoice);
+                    }                   
                 }
+
+                _unitOfWork.Commit();
 
                 return new CommandResponse()
                 {

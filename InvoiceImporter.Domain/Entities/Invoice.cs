@@ -22,13 +22,9 @@ namespace InvoiceImporter.Domain.Entities
         }
 
         public EImportType ImportType { get; private set; }
-
         public DateTime DueDate { get; private set; }
-
         public DateTime RegisterDate { get; private set; }
-
         public FilePath? FilePath { get; private set; }
-
         public IReadOnlyCollection<InvoiceItem>? InvoiceItems { get { return _invoiceItems?.ToArray(); } }
 
         public void AddInvoiceItem(InvoiceItem invoiceItem)
@@ -45,6 +41,7 @@ namespace InvoiceImporter.Domain.Entities
                 foreach (var lines in file.Skip(1))
                 {
                     var invoiceItem = new InvoiceItem(ImportType, lines, Id);
+                    
                     AddInvoiceItem(invoiceItem);
                 }
             }

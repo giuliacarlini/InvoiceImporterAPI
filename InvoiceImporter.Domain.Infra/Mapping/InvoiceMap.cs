@@ -24,16 +24,19 @@ namespace InvoiceImporter.Domain.Infra.Mapping
 
             builder.Property(x => x.RegisterDate)
                 .HasColumnName("RegisterDate")
+                .HasColumnType("DateTime")
                 .IsRequired(true);
 
             builder.OwnsOne(x => x.FilePath)
                 .Property(x => x.Name)
                 .HasColumnName("FileName")
+                .HasColumnType("varchar(100)")
                 .IsRequired(true);
 
             builder.OwnsOne(x => x.FilePath)
                 .Property(x => x.Path)
                 .HasColumnName("FilePath")
+                .HasColumnType("varchar(200)")
                 .IsRequired(true);
 
             builder.OwnsOne(x => x.FilePath)

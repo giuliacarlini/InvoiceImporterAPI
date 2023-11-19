@@ -18,19 +18,28 @@ namespace InvoiceImporter.Domain.Infra.Mapping
 
             builder.Property(x => x.Category)
                 .HasColumnName("Category")
-                .IsRequired(true);
+                .IsRequired(true)
+                .HasColumnType("varchar(100)");
+
+            builder.Property(x => x.Description)
+                .HasColumnName("Description")
+                .IsRequired(true)
+                .HasColumnType("varchar(100)");
 
             builder.Property(x => x.Value)
                 .HasColumnName("Value")
-                .IsRequired(true);
+                .IsRequired(true)
+                .HasPrecision(14,2);
 
             builder.Property(x => x.CurrentyInstallments)
                 .HasColumnName("CurrentyInstallments")
-                .IsRequired(false);
+                .IsRequired(false)
+                .HasColumnType("char(2)");
 
             builder.Property(x => x.TotalInstallments)
                 .HasColumnName("TotalInstallments")
-                .IsRequired(false);
+                .IsRequired(false)
+                .HasColumnType("char(2)");
 
             builder.Ignore(x => x.Notifications);
         }

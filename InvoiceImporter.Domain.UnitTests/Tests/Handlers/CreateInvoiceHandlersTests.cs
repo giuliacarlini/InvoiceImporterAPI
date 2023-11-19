@@ -4,18 +4,32 @@ using InvoiceImporter.Domain.Commands;
 using InvoiceImporter.Domain.Commands.Request;
 using InvoiceImporter.Domain.Enum;
 using InvoiceImporter.Domain.Handlers;
+using InvoiceImporter.Domain.Infra.Context;
+using InvoiceImporter.Domain.Settings;
+using InvoiceImporter.Domain.Tests.Tests.Mocks;
+using Microsoft.Extensions.Options;
 
 namespace ImporterInvoice.Tests.Handlers
 {
     public class CreateInvoiceHandlersTests
     {
+        IOptions<AppSettings> appSettings;
+
+        public CreateInvoiceHandlersTests()
+        {
+            appSettings = Options.Create(new AppSettings());
+        }
+
         [Fact]
         public void testar_importacao_fatura_nubank_invalido()
         {
+            var unitOfWork = new FakeUnitOfWork();
+
             var handlerFatura = new InvoiceHandler(
                 new FakeInvoiceRepository(),
-                new FakeInvoiceItemRepository()
-            );
+                new FakeInvoiceItemRepository(),
+                appSettings,
+                unitOfWork);
 
             var command = new CreateInvoiceRequest()
             {
@@ -32,10 +46,13 @@ namespace ImporterInvoice.Tests.Handlers
         [Fact]
         public void testar_importacao_fatura_nubank_valido()
         {
+            var unitOfWork = new FakeUnitOfWork();
+
             var handlerFatura = new InvoiceHandler(
                 new FakeInvoiceRepository(),
-                new FakeInvoiceItemRepository()
-                );
+                new FakeInvoiceItemRepository(),
+                appSettings,
+                unitOfWork);
 
             var command = new CreateInvoiceRequest()
             {

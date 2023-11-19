@@ -18,7 +18,6 @@ namespace InvoiceImporter.Domain.Infra.Repositories
         public void Add(Invoice invoice)
         {
             _context.Add(invoice);
-            _context.SaveChanges();
         }
 
         public IEnumerable<Invoice> FindAll()

@@ -57,40 +57,43 @@ namespace ImporterInvoice.Tests.Tests.Entities
         [Theory, MemberData(nameof(CorrectData))]
         public void test_lancamentos_validos(string linha, DateTime data, string categoria, string descricao, string parcela, string totalParcela, decimal valor)
         {
-            var lancamento = new InvoiceItem(EImportType.Nubank, linha);
+            var invoice = new Invoice();
 
-            Assert.NotNull(lancamento);
-            Assert.True(lancamento.Date == data, "Data inválida");
-            Assert.True(lancamento.Category == categoria, "Categoria inválida");
-            Assert.True(lancamento.Description == descricao, "Descrição inválida");
-            Assert.True(lancamento.CurrentyInstallments == parcela, "Parcela inválida");
-            Assert.True(lancamento.TotalInstallments == totalParcela, "Total Parcela inválida");
-            Assert.True(lancamento.Value == valor, "Valor inválido");
+            var invoiceItem = new InvoiceItem(EImportType.Nubank, linha, invoice.Id);
+
+            invoice.AddInvoiceItem(invoiceItem);
+
+            Assert.NotNull(invoiceItem);
+            Assert.True(invoiceItem.Date == data, "Data inválida");
+            Assert.True(invoiceItem.Category == categoria, "Categoria inválida");
+            Assert.True(invoiceItem.Description == descricao, "Descrição inválida");
+            Assert.True(invoiceItem.CurrentyInstallments == parcela, "Parcela inválida");
+            Assert.True(invoiceItem.TotalInstallments == totalParcela, "Total Parcela inválida");
+            Assert.True(invoiceItem.Value == valor, "Valor inválido");
+            Assert.True(invoiceItem.InvoiceId == invoice.Id, "Id da Fatura está inválido");
         }
 
         [Fact]
         public void testar_create_lancamento_invalido()
         {
-            var lancamento = new InvoiceItem(EImportType.Nubank, "2019-10-20,,");
+            var invoice = new Invoice();
 
-            Assert.True(lancamento.Invalid);
+            var invoiceitem = new InvoiceItem(EImportType.Nubank, "2019-10-20,,", invoice.Id) ;
 
-            Assert.True(ValidarEntidades("Data", InvoiceItem.InvalidDate, lancamento.Notifications));
-
-            Assert.True(ValidarEntidades("Categoria", InvoiceItem.InvalidCategory, lancamento.Notifications));
-
-            Assert.True(ValidarEntidades("Descricao", InvoiceItem.InvalidDescription, lancamento.Notifications));
-
-            Assert.True(ValidarEntidades("Valor", InvoiceItem.InvalidValue, lancamento.Notifications));
+            Assert.True(invoiceitem.Invalid);
+            Assert.True(ValidarEntidades("Data", InvoiceItem.InvalidDate, invoiceitem.Notifications));
+            Assert.True(ValidarEntidades("Categoria", InvoiceItem.InvalidCategory, invoiceitem.Notifications));
+            Assert.True(ValidarEntidades("Descricao", InvoiceItem.InvalidDescription, invoiceitem.Notifications));
+            Assert.True(ValidarEntidades("Valor", InvoiceItem.InvalidValue, invoiceitem.Notifications));
         }
 
-        private bool ValidarEntidades(string Propriedade, string MensagemErro, IReadOnlyCollection<Notification> notifications1)
+        private bool ValidarEntidades(string property, string errorMessage, IReadOnlyCollection<Notification> notifications)
         {
-            foreach (var notification in notifications1)
+            foreach (var notification in notifications)
             {
-                if (notification.Property == Propriedade)
+                if (notification.Property == property)
                 {
-                    return notification.Message.Contains(MensagemErro);
+                    return notification.Message.Contains(errorMessage);
                 }
             }
 

@@ -20,12 +20,10 @@ namespace InvoiceImporter.Domain.Entities
         public decimal Value { get; private set; }
         public string CurrentyInstallments { get; private set; } = string.Empty;
         public string TotalInstallments { get; private set; } = string.Empty;
-        public Guid IdInvoice { get; private set; }
+        public Guid InvoiceId { get; private set; }
 
-        public InvoiceItem(EImportType tipoImportacao, string linha, Guid idInvoice)
+        public InvoiceItem(EImportType tipoImportacao, string linha, Guid invoiceItem)
         {
-            IdInvoice = idInvoice;
-
             switch (tipoImportacao)
             {
                 case EImportType.Nubank:
@@ -33,6 +31,7 @@ namespace InvoiceImporter.Domain.Entities
 
                     var data = DateTime.Parse(ReadRegister(lineSplitNu, 0));
                     Date = data;
+                    InvoiceId = invoiceItem;
 
                     Category = ReadRegister(lineSplitNu, 1);
                     Description = ReadRegister(lineSplitNu, 2);
@@ -42,9 +41,7 @@ namespace InvoiceImporter.Domain.Entities
                         Value = valor;
                     }
 
-                    SearchInstallments(ReadRegister(lineSplitNu, 2), out var parcela, out var totalParcela);
-                    CurrentyInstallments = parcela;
-                    TotalInstallments = totalParcela;
+                    SearchInstallments(ReadRegister(lineSplitNu, 2));
 
                     break;
                 default:
@@ -75,7 +72,7 @@ namespace InvoiceImporter.Domain.Entities
             return position < lineSplitNu.Length ? lineSplitNu[position].Trim() : "";
         }
 
-        private void SearchInstallments(string descriptionString, out string currentInstallments, out string totalInstallments)
+        private void SearchInstallments(string descriptionString)
         {
 
             if (descriptionString.IndexOf("/") > 0)
@@ -86,16 +83,18 @@ namespace InvoiceImporter.Domain.Entities
                 {
                     if (s.Contains('/'))
                     {
-                        totalInstallments = s.Substring(s.IndexOf("/") + 1, new string(s.Reverse().ToArray()).IndexOf("/"));
-                        currentInstallments = s.Substring(0, s.IndexOf("/"));
+                        int _currentInstallments;
+                        int _totalInstallments;
 
+                        if (int.TryParse(s.Substring(0, s.IndexOf("/")), out _currentInstallments))
+                            CurrentyInstallments = _currentInstallments.ToString();
+
+                        if (int.TryParse(s.Substring(s.IndexOf("/") + 1, new string(s.Reverse().ToArray()).IndexOf("/")), out _totalInstallments))
+                            TotalInstallments = _totalInstallments.ToString();
                         return;
                     }
                 }
             }
-
-            currentInstallments = "0";
-            totalInstallments = "0";
         }
     }
 }
