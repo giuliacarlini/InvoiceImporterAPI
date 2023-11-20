@@ -1,4 +1,5 @@
 ﻿using ImporterInvoice.Domain.Shared.Commands;
+using ImporterInvoice.Tests.Common;
 using ImporterInvoice.Tests.Mocks;
 using InvoiceImporter.Domain.Commands;
 using InvoiceImporter.Domain.Commands.Request;
@@ -28,7 +29,7 @@ namespace ImporterInvoice.Tests.Tests.Commands
             {
                 ImportType = EImportType.Nubank,
                 DueDate = new DateTime(2023, 10, 26),
-                FilePath = "C:\\Teste\\teste.csv"
+                FileName = "C:\\Teste\\teste.csv"
             };
 
             FaturaCommand.Validate();
@@ -43,7 +44,8 @@ namespace ImporterInvoice.Tests.Tests.Commands
             {
                 ImportType = EImportType.Nubank,
                 DueDate = new DateTime(2023, 10, 26),
-                FilePath = "C:\\Teste\\Teste\\teste.csv"
+                FileName = "",
+                Lines = Const.Lines
             };
 
             FaturaCommand.Validate();
@@ -58,7 +60,7 @@ namespace ImporterInvoice.Tests.Tests.Commands
             {
                 ImportType = EImportType.Nubank,
                 DueDate = new DateTime(2023, 10, 26),
-                FilePath = "C:\\Teste\\teste.csv"
+                FileName = "C:\\Teste\\teste.csv"
             };
 
             var unitOfWork = new FakeUnitOfWork();
@@ -81,7 +83,7 @@ namespace ImporterInvoice.Tests.Tests.Commands
             {
                 ImportType = EImportType.Nubank,
                 DueDate = new DateTime(2023, 10, 26),
-                FilePath = "C:\\Teste\\teste.csv"
+                FileName = "C:\\Teste\\teste.csv"
             };
 
             var unitOfWork =  new FakeUnitOfWork();

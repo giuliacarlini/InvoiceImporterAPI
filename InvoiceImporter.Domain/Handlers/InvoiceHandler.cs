@@ -8,7 +8,6 @@ using InvoiceImporter.Domain.Commands.Request;
 using InvoiceImporter.Domain.Commands.Response;
 using InvoiceImporter.Domain.Entities;
 using InvoiceImporter.Domain.Settings;
-using InvoiceImporter.Domain.ValueObjects;
 using Microsoft.Extensions.Options;
 
 namespace InvoiceImporter.Domain.Handlers
@@ -49,6 +48,7 @@ namespace InvoiceImporter.Domain.Handlers
                         Date = DateTime.Now,
                         Category = item.Category,
                         Description = item.Description,
+                        Value = item.Value,
                         CurrentyInstallments = item.CurrentyInstallments,
                         TotalInstallments = item.TotalInstallments
                     };
@@ -76,22 +76,20 @@ namespace InvoiceImporter.Domain.Handlers
         {
             command.Validate();
             
-            if (_invoiceRepository.FindInvoice(Path.GetFileName(command.FilePath)))
+            if (_invoiceRepository.FindInvoice(Path.GetFileName(command.FileName)))
                 AddNotification("CaminhoArquivo", "O Arquivo já foi adicionado anteriormente.");
 
             if (_invoiceRepository.FindInvoice(command.DueDate, command.ImportType))
                 AddNotification("Arquivo", "Já foi importado um arquivo para mesma data de Vencimento e tipo");
 
-            var _filePath = new FilePath(command.FilePath);
+            var _invoice = new Invoice(command.ImportType, command.DueDate, command.FileName);
 
-            var _invoice = new Invoice(command.ImportType, command.DueDate, _filePath);
-
-            AddNotifications(command, _filePath);
+            AddNotifications(command);
 
             if (Invalid)
                 return RetornarInvalido();
 
-            _invoice.ReadFileCSV();
+            _invoice.ReadFileCSV(command.Lines);
 
             AddNotifications(_invoice);
 

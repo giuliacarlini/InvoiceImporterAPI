@@ -27,7 +27,7 @@ namespace InvoiceImporter.Domain.Infra.Repositories
 
         public bool FindInvoice(string nameFile)
         {
-            return _context.Invoice.Where(x => x.FilePath.Name == nameFile).ToList().Count > 0;
+            return _context.Invoice.Where(x => x.FileName == nameFile).ToList().Count > 0;
         }
 
         public bool FindInvoice(DateTime dueDate, EImportType importType)

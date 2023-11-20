@@ -2,7 +2,6 @@
 using ImporterInvoice.Tests.Common;
 using InvoiceImporter.Domain.Entities;
 using InvoiceImporter.Domain.Enum;
-using InvoiceImporter.Domain.ValueObjects;
 
 namespace ImporterInvoice.Tests.Tests.Entities
 {
@@ -13,14 +12,14 @@ namespace ImporterInvoice.Tests.Tests.Entities
           new object[] {
               EImportType.Nubank,
               new DateTime(2023,10,18),
-              Const.CaminhoArquivoValido},
+              "arquivo.csv"},
         };
 
         [Theory, MemberData(nameof(CorrectData))]
         public void testar_create_fatura_ler_csv(EImportType tipoImportacao, DateTime vencimento, string nomeArquivo)
         {
-            var caminhoArquivo = new FilePath(nomeArquivo);
-            var invoice = new Invoice(tipoImportacao, vencimento, caminhoArquivo);
+
+            var invoice = new Invoice(tipoImportacao, vencimento, nomeArquivo);
 
             string msg = string.Empty;
             foreach (var notification in Notifications)
@@ -31,7 +30,7 @@ namespace ImporterInvoice.Tests.Tests.Entities
             if (Valid == false)
                 Assert.Fail("O arquivo não foi validado: " + msg);
 
-            invoice.ReadFileCSV();
+            invoice.ReadFileCSV(Const.Lines);
 
             Assert.NotNull(invoice);
             Assert.True(Guid.Empty != invoice.Id);
@@ -39,14 +38,13 @@ namespace ImporterInvoice.Tests.Tests.Entities
             Assert.True(invoice.RegisterDate.Date == DateTime.Now.Date);
             Assert.True(invoice.InvoiceItems?.Count > 0);
             Assert.True(invoice.ImportType == EImportType.Nubank);
-            Assert.True(invoice.FilePath?.ToString() == invoice.FilePath?.Path + invoice.FilePath?.Name);
+            Assert.True(invoice.FileName == invoice.FileName);
         }
 
         [Theory, MemberData(nameof(CorrectData))]
         public void testar_create_fatura_create_lancamento(EImportType tipoImportacao, DateTime vencimento, string nomeArquivo)
         {
-            var caminhoArquivo = new FilePath(nomeArquivo);
-            var fatura = new Invoice(tipoImportacao, vencimento, caminhoArquivo);
+            var fatura = new Invoice(tipoImportacao, vencimento, nomeArquivo);
 
             var lancamento = new InvoiceItem(tipoImportacao, "2023-10-20,", fatura.Id);
 

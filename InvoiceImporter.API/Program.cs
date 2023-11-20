@@ -1,4 +1,3 @@
-using InvoiceImporter.API.Settings;
 using InvoiceImporter.Domain.Adapters;
 using InvoiceImporter.Domain.Adapters.Repository;
 using InvoiceImporter.Domain.Handlers;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Azure.Identity;
+using InvoiceImporter.Domain.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +22,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(appSettings.ConnectionStrings?.SQLServer));
+builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+//builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(appSettings.ConnectionStrings?.SQLServer));
 
 AddServices(builder, configuration);
 

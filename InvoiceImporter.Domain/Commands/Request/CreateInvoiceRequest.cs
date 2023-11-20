@@ -9,14 +9,14 @@ namespace InvoiceImporter.Domain.Commands.Request
     {
         public EImportType ImportType { get; set; }
         public DateTime DueDate { get; set; }
-        public string FilePath { get; set; } = string.Empty;
+        public string FileName { get; set; } = string.Empty;
+        public List<string> Lines { get; set; } = new List<string>();
         public void Validate()
         {
             AddNotifications(new Contract()
                 .Requires()
-                .IsTrue(Path.Exists(FilePath), "CaminhoArquivo", "O Caminho está inválido!")
-                .IsTrue(File.Exists(FilePath), "CaminhoArquivo", "O Arquivo não existe!")
-                .IsNotNull(ImportType, "TipoExportacao", "O Tipo da Exportação está inválido!")
+                .HasMinLen(FileName, 8, "FileName", "O Nome do Arquivo está inválido!")
+                .IsNotNull(ImportType, "TipoImportacao", "O Tipo da Importação está inválido!")
                 .IsBetween(DueDate, new DateTime(2020, 1, 1), DateTime.Now, "Vencimento", "O Vencimento está inválido!"));
         }
     }

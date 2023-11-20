@@ -1,6 +1,5 @@
 ﻿using ImporterInvoice.Domain.Shared.Entities;
 using InvoiceImporter.Domain.Enum;
-using InvoiceImporter.Domain.ValueObjects;
 
 namespace InvoiceImporter.Domain.Entities
 {
@@ -10,21 +9,19 @@ namespace InvoiceImporter.Domain.Entities
 
         public Invoice() { }
 
-        public Invoice(EImportType importType, DateTime dueDate, FilePath filePath)
+        public Invoice(EImportType importType, DateTime dueDate, string filePath)
         {
             ImportType = importType;
             DueDate = dueDate;
             RegisterDate = DateTime.Now;
-            FilePath = filePath;
+            FileName = filePath;
             _invoiceItems = new List<InvoiceItem>();
-
-            AddNotifications(filePath);
         }
 
         public EImportType ImportType { get; private set; }
         public DateTime DueDate { get; private set; }
         public DateTime RegisterDate { get; private set; }
-        public FilePath? FilePath { get; private set; }
+        public string FileName { get; private set; }
         public IReadOnlyCollection<InvoiceItem>? InvoiceItems { get { return _invoiceItems?.ToArray(); } }
 
         public void AddInvoiceItem(InvoiceItem invoiceItem)
@@ -32,15 +29,13 @@ namespace InvoiceImporter.Domain.Entities
             _invoiceItems?.Add(invoiceItem);
         }
 
-        public void ReadFileCSV()
+        public void ReadFileCSV(List<string> lines)
         {
-            if (FilePath is not null)
+            if (FileName is not null)
             {
-                List<string> file = File.ReadLines(FilePath.ToString()).ToList();
-
-                foreach (var lines in file.Skip(1))
+                foreach (var line in lines.Skip(1))
                 {
-                    var invoiceItem = new InvoiceItem(ImportType, lines, Id);
+                    var invoiceItem = new InvoiceItem(ImportType, line, Id);
                     
                     AddInvoiceItem(invoiceItem);
                 }

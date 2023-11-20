@@ -33,9 +33,6 @@
     <None Update="arquivos\nubank\nubank-2023-09-excel.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Files\nubank\nubank-2023-09.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

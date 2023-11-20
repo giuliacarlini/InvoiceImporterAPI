@@ -34,7 +34,7 @@ namespace ImporterInvoice.Tests.Handlers
             var command = new CreateInvoiceRequest()
             {
                 ImportType = EImportType.Nubank,
-                FilePath = "C:\\Teste\\Teste.csv",
+                FileName = "C:\\Teste\\Teste.csv",
                 DueDate = new DateTime(2023, 10, 26)
             };
 
@@ -57,8 +57,9 @@ namespace ImporterInvoice.Tests.Handlers
             var command = new CreateInvoiceRequest()
             {
                 ImportType = EImportType.Nubank,
-                FilePath = Const.CaminhoArquivoValido,
-                DueDate = new DateTime(2023, 10, 26)
+                FileName = "arquivo.csv",
+                DueDate = new DateTime(2023, 10, 26),
+                Lines = Const.Lines
             };
 
             handlerFatura.Handle(command);
